@@ -17,7 +17,7 @@ export const BentoGrid = ({
     return (
         <div
             className={cn(
-                "grid md:auto-rows-[18rem] grid-cols-1 md:grid-cols-3 gap-4 max-w-7xl mx-auto ",
+                "grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 max-w-7xl mx-auto  ",
                 className
             )}
         >
@@ -49,11 +49,15 @@ export const BentoGridItem = ({
 }) => {
     const [copied, setCopied] = useState(false);
     const handleCopy = () => {
-        navigator.clipboard.writeText('anderson.dev17@gmail.com');
+
+        const text = "anderson.dev17@gmail.com";
+        navigator.clipboard.writeText(text);
         setCopied(true);
-        setTimeout(() => {
-            setCopied(false);
-        }, 2000);
+        /*  navigator.clipboard.writeText('anderson.dev17@gmail.com');
+         setCopied(true);
+         setTimeout(() => {
+             setCopied(false);
+         }, 2000); */
     };
     return (
         <div
@@ -135,7 +139,8 @@ export const BentoGridItem = ({
 
                     {id === 6 && (
                         <div className="mt-5 relative">
-                            <div className={`absolute -botton-5 right-0`}
+                            <div className={`absolute -bottom-5 right-0 ${copied ? "block" : "block"
+                                }`}
                             >
                                 <Lottie options={{
                                     loop: copied,
@@ -147,14 +152,13 @@ export const BentoGridItem = ({
                                 }} />
                             </div>
                             <MagicButton
-                                title={copied ? 'Email Copied' : 'Send  my Email'}
+                                title={copied ? "Email is Copied!" : "Copy my email address"}
                                 icon={<IoCopyOutline />}
                                 position="left"
-                                otherclasses="!bg-[#161a31]"
-                                handleClick={handleCopy}
+                                handleclick={handleCopy} // Change handleClick to handleclick
+                                otherClasses="!bg-[#161A31]"
                             />
                         </div>
-
                     )}
 
                 </div>
