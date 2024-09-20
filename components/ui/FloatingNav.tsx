@@ -3,11 +3,12 @@ import { cn } from "@/lib/utils";
 import {
     AnimatePresence,
     motion,
-    useMotionValueEvent,
+    useMotionValue,
     useScroll,
+    useTransform,
 } from "framer-motion";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export const FloatingNav = ({
     navItems,
@@ -16,66 +17,79 @@ export const FloatingNav = ({
     navItems: {
         name: string;
         link: string;
-        icon?: JSX.Element;
     }[];
     className?: string;
 }) => {
     const { scrollYProgress } = useScroll();
+    const ref = useRef(null);
+    const [expanded, setExpanded] = useState(false);
+    const [hoveringItem, setHoveringItem] = useState<number | null>(null);
+    const expandedValue = useMotionValue(expanded ? 0 : 1);
 
-    const [visible, setVisible] = useState(false);
-
-    useMotionValueEvent(scrollYProgress, "change", (current) => {
-        // Check if current is not undefined and is a number
-        if (typeof current === "number") {
-            let direction = current! - scrollYProgress.getPrevious()!;
-
-            if (scrollYProgress.get() < 0.05) {
-                setVisible(false);
-            } else {
-                if (direction < 0) {
-                    setVisible(true);
-                } else {
-                    setVisible(false);
-                }
-            }
-        }
-    });
+    // Calcula el movimiento y transformación para el estado de scroll y expansión
+    const translateY = useTransform(scrollYProgress, [0, 0.05, 1], [0, 0, -100]);
+    const borderRadius = useTransform(expandedValue, [0, 1], ["50%", "20px"]);
+    const width = useTransform(expandedValue, [0, 1], ["4rem", "25rem"]);
+    useEffect(() => {
+        expandedValue.set(!expanded ? 1 : 0);
+    }, [expanded, expandedValue]);
 
     return (
         <AnimatePresence mode="wait">
             <motion.div
-                initial={{
-                    opacity: 1,
-                    y: -100,
-                }}
-                animate={{
-                    y: visible ? 0 : -100,
-                    opacity: visible ? 1 : 0,
+                ref={ref}
+                initial={{ opacity: 1 }}
+                style={{
+                    y: translateY,
+                    borderRadius: borderRadius,
+                    width: width,
                 }}
                 transition={{
-                    duration: 0.2,
+                    duration: 0.4,
+                    ease: [0.4, 0, 0.2, 1],
                 }}
                 className={cn(
-                    "flex max-w-fit  fixed top-10 inset-x-0 mx-auto border border-transparent dark:border-white/[0.2] rounded-full dark:bg-black bg-white shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] z-[5000] pr-2 pl-8 py-2  items-center justify-center space-x-4",
+                    "flex fixed top-10 inset-x-0 mx-auto overflow-hidden shadow-lg z-[5000] px-4 py-3 items-center justify-center space-x-4 border border-white/[0.2] bg-black/80 backdrop-blur-md",
                     className
                 )}
+                
             >
                 {navItems.map((navItem: any, idx: number) => (
                     <Link
                         key={`link=${idx}`}
                         href={navItem.link}
                         className={cn(
-                            "relative dark:text-neutral-50 items-center flex space-x-1 text-neutral-600 dark:hover:text-neutral-300 hover:text-neutral-500"
+                            "relative text-neutral-50 items-center flex space-x-1 transition-opacity duration-300",
+                            {
+                                "opacity-1 ": expanded,
+                            }
                         )}
+                        onMouseEnter={() => setHoveringItem(idx)}
+                        onMouseLeave={() => setHoveringItem(null)} 
                     >
-                        <span className="block sm:hidden">{navItem.icon}</span>
-                        <span className="hidden sm:block text-sm">{navItem.name}</span>
+                        {/* Fondo degradado sutil */}
+                        <motion.div
+                            className="absolute inset-0 bg-gradient-to-br from-purple-500 to-pink-500 opacity-10 rounded-full blur-sm group-hover:opacity-20 transition-opacity"
+                            style={{ borderRadius }}
+                        />
+
+                        {/* Borde animado */}
+                        <motion.div
+                            className="absolute inset-0 border-2 border-white rounded-full opacity-0 group-hover:opacity-80 transition-opacity"
+                            style={{ borderRadius }}
+                        />
+
+                        {/* Texto del enlace con animación al pasar el ratón */}
+                        <motion.span
+                            className="z-10 relative text-sm font-semibold" 
+                            animate={{ scale: hoveringItem === idx ? 1.2 : 1 }} 
+                            whileHover={{ scale: 1.3 }}  
+                            transition={{ duration: 0.3 }}
+                        >
+                            {navItem.name} 
+                        </motion.span>
                     </Link>
                 ))}
-                <button className="border text-sm font-medium relative border-neutral-200 dark:border-white/[0.2] text-black dark:text-white px-4 py-2 rounded-full">
-                    <span>Login</span>
-                    <span className="absolute inset-x-0 w-1/2 mx-auto -bottom-px bg-gradient-to-r from-transparent via-blue-500 to-transparent  h-px" />
-                </button>
             </motion.div>
         </AnimatePresence>
     );

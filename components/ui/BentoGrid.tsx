@@ -17,7 +17,8 @@ export const BentoGrid = ({
     return (
         <div
             className={cn(
-                "grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 max-w-7xl mx-auto  ",
+                // change gap-4 to gap-8, change grid-cols-3 to grid-cols-5, remove md:auto-rows-[18rem], add responsive code
+                "grid grid-cols-1 md:grid-cols-6 lg:grid-cols-5 md:grid-row-7 gap-4 lg:gap-10 mx-auto",
                 className
             )}
         >
@@ -53,11 +54,6 @@ export const BentoGridItem = ({
         const text = "anderson.dev17@gmail.com";
         navigator.clipboard.writeText(text);
         setCopied(true);
-        /*  navigator.clipboard.writeText('anderson.dev17@gmail.com');
-         setCopied(true);
-         setTimeout(() => {
-             setCopied(false);
-         }, 2000); */
     };
     return (
         <div
@@ -97,8 +93,8 @@ export const BentoGridItem = ({
                 {id === 6 && (
                     // add background animation , remove the p tag
                     <BackgroundGradientAnimation>
-                        <div className="absolute z-50 inset-0 flex items-center justify-center text-white font-bold px-4 pointer-events-none text-3xl text-center md:text-4xl lg:text-7xl"></div>
-                    </BackgroundGradientAnimation>
+                        {/*     <div className="absolute z-50 inset-0 flex items-center justify-center text-white font-bold px-4 pointer-events-none text-3xl text-center md:text-4xl lg:text-7xl"></div>
+                    */} </BackgroundGradientAnimation>
                 )}
                 <div className={cn(titleClassName, 'group-hover/bento:translate-x-2 transition duration-200 relative md:h-full min:h-full min-h-40 flex flex-col px-5 p-5 lg:10')}>
                     <div className="font-sans font-normal text-extralight text-[#c1c2d3] text-sm md:text-xs lg:text-base z-10">
