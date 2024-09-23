@@ -6,10 +6,8 @@ import Grid from "@/components/Grid";
 import Hero from "@/components/Hero";
 import RecentProjects from "@/components/RecentProjects";
 import { FloatingNav } from "@/components/ui/FloatingNav";
-import MagicButton from "@/components/ui/MagicButton"; // Import the MagicButton component
 import { navItems } from "@/data";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { FaBriefcase } from "react-icons/fa"; // You might need to install react-icons
 
 export default function Home() {
 
@@ -23,16 +21,7 @@ export default function Home() {
   return (
 
     <main className="relative bg-black-100 flex justify-center items-center flex-col overflow-hidden mx-auto sm:px-10 px-5 perspective-lg">
-      <div className="fixed top-4 right-4 z-50"> {/* Fixed positioning */}
-        <a href="mailto:anderson.dev17@gmail.com">
-          <MagicButton
-            title="Hire Me"
-            icon={<FaBriefcase />}   /*  prueba  */
-            position="right"
-            otherclasses="!bg-purple-500 hover:!bg-green-700"
-          />
-        </a>
-      </div>
+      
       <div className="max-w-7xl w-full">
         <FloatingNav navItems={navItems} />
 
