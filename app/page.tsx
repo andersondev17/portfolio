@@ -27,7 +27,7 @@ export default function Home() {
         <a href="mailto:anderson.dev17@gmail.com">
           <MagicButton
             title="Hire Me"
-            icon={<FaBriefcase />}
+            icon={<FaBriefcase />}   /*  prueba  */
             position="right"
             otherclasses="!bg-purple-500 hover:!bg-green-700"
           />
