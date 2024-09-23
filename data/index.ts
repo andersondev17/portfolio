@@ -30,7 +30,7 @@ export const gridItems = [
     {
         id: 3,
         title: "My tech stack",
-        description: "Java, React.js, HTML, CSS, Javascript, Tailwind, Bootstrap, SQL, GitHub, Node.js, Figmae",
+        description: "Java, React.js, HTML, CSS, Javascript, Tailwind, Bootstrap, SQL, GitHub, Node.js, Figma",
         className: "lg:col-span-2 md:col-span-3 md:row-span-2",
         imgClassName: "",
         titleClassName: "justify-center",
@@ -50,7 +50,7 @@ export const gridItems = [
 
     {
         id: 5,
-        title: "Currently building a JS Animation library",
+        title: "Building an app that will revolutionize the way barbers manage their businesses.",
         description: "The Inside Scoop",
         className: "md:col-span-3 md:row-span-2 lg:col-span-2 lg:row-span-3",
         imgClassName: "absolute right-0 bottom-0 md:w-96 w-60",
@@ -82,26 +82,10 @@ export const projects = [
     {
         id: 2,
         title: "E commerce platform",
-        des: "An e-commerce website for a restaurant named Sanguches, likely specializing in sandwiches.",
+        des: "An e-commerce website for a restaurant, likely specializing in sandwiches.",
         img: "/p2.png",
         iconLists: ["nodejs.svg","/re.svg", "/tail.svg", "https://www.vectorlogo.zone/logos/mysql/mysql-icon.svg","/laravel-2.svg"],
         link: "https://github.com/adrianhajdin/zoom-clone",
-    },
-    {
-        id: 3,
-        title: "AI Image SaaS - Canva Application",
-        des: "A REAL Software-as-a-Service app with AI features and a payments and credits system using the latest tech stack.",
-        img: "/p3.svg",
-        iconLists: ["/re.svg", "/tail.svg", "/ts.svg", "/three.svg", "/c.svg"],
-        link: "https://github.com/adrianhajdin/ai_saas_app",
-    },
-    {
-        id: 4,
-        title: "Animated Apple Iphone 3D Website",
-        des: "Recreated the Apple iPhone 15 Pro website, combining GSAP animations and Three.js 3D effects..",
-        img: "/p4.svg",
-        iconLists: ["/next.svg", "/tail.svg", "/ts.svg", "/three.svg", "/gsap.svg"],
-        link: "https://github.com/adrianhajdin/iphone",
     },
 ];
 
