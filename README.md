@@ -5,14 +5,14 @@ This portfolio website showcases my work and skills. It's built using modern web
 
 ## Features
 
-* **Next.js:**
-* **TypeScript:**  
-* **Framer Motion:** 
+* **Next.js**
+* **TypeScript**  
+* **Framer Motion** 
 
 
 ## Live Demo
 
-You can see the portfolio in action at: https://portfolio-deploy-4h6yoox9f-thegodfatherptes-projects.vercel.app/ 
+You can see the portfolio in action at: https://portfolio-deploy-ebon.vercel.app/
 
 ## Getting Started (Optional)
 
