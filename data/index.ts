@@ -29,7 +29,7 @@ export const gridItems = [
     {
         id: 3,
         title: "My tech stack",
-        description: "Java, React.js, HTML, CSS, Javascript, Tailwind, Bootstrap, SQL, GitHub, Node.js, Figma",
+        description: "Javascript(ES6), React.js,  Node.js, HTML5, CSS3, Tailwind, SQL, GitHub, Figma",
         className: "lg:col-span-2 md:col-span-3 md:row-span-2",
         imgClassName: "",
         titleClassName: "justify-center",
@@ -73,7 +73,7 @@ export const projects = [
     {
         id: 1,
         title: "Survey Master",
-        des: "is a web application designed for an insurance company.",
+        des: "is a single-page web application designed to get appointed with a survey.",
         img: "/p1.png",
         iconLists: ["nodejs.svg","/re.svg", "/tail.svg"],
         link: "https://spin-website-graphics-iucy-nara3wyvv-thegodfatherptes-projects.vercel.app/",
@@ -81,11 +81,19 @@ export const projects = [
     {
         id: 2,
         title: "E commerce platform",
-        des: "An e-commerce website for a restaurant, likely specializing in sandwiches.",
+        des: "Enjoy a seamless user experience as you select ingredients, customize toppings, and explore various bread options..",
         img: "/p2.png",
         iconLists: ["nodejs.svg","/re.svg", "/tail.svg", "https://www.vectorlogo.zone/logos/mysql/mysql-icon.svg","/laravel-2.svg"],
-        link: "https://github.com/adrianhajdin/zoom-clone",
+        link: "https://github.com/andersondev17",
     },
+    {
+        id: 3,
+        title: "AMMAE",
+        des: "Discover our exclusive collection of women's fashion. Shop now and elevate your style.",
+        img: "/p3.jpg",
+        iconLists: ["nodejs.svg","/re.svg", "/tail.svg", "mongo-icon.svg"],
+        link: "https://github.com/andersondev17",
+    }
 ];
 
 export const testimonials = [
