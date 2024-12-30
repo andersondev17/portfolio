@@ -1,7 +1,7 @@
 
 # My Portfolio
 
-This portfolio website showcases my work and skills. It's built using modern web technologies to provide a smooth and engaging user experience.
+This portfolio website showcases my work and skills. It's built using modern web technologies to provide a smooth and engaging user experience. The platform allows seamless management of product inventory, categories, and pricing through an intuitive admin panel while providing a smooth experience for users.
 
 ## Features
 
