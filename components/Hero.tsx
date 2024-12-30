@@ -48,14 +48,13 @@ const Hero = () => {
                     >
                         <div className="heading text-foreground">
                             <TextGenerateEffect
-                                words="Transforming modern concepts into seamless user experiences"
+                                words="Crafting Scalable Solutions For Seamless User Experiences"
                             />
                         </div>
                         <ProfileAvatar />
                         <div className="max-w-[42rem] mx-auto text-base sm:text-lg text-muted-foreground">
-                            I'm Anderson, a software developer based in Colombia. 
-                            Specializing in creating exceptional digital experiences 
-                            with modern web technologies.
+                            I'm Anderson, a Developer based in Colombia. 
+                            Specializing in creating dynamic web applications. My expertise lies in transforming ideas into reality.
                         </div>
                     </motion.p>
 

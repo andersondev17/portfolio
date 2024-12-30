@@ -87,7 +87,7 @@ export const projects = [
     {
         id: 2,
         title: "AMMAE",
-        des: "MERN Shopping store and product management with API Rest using Mongoose shadcn.",
+        des: "MERN Shopping store and product management with custom CMS with API Rest using Mongoose.",
         img: "/p3.png",
         iconLists: ["next.svg", "/ts.svg", "/tail.svg", "mongo-icon.svg"],
         link: "https://github.com/andersondev17/AMMAE",
@@ -155,14 +155,14 @@ export const workExperience = [
     {
         id: 2,
         title: "Software Developer",
-        desc: "As a freelance developer, I prioritize strong client relationships by working closely to understand their needs and align solutions with their business goals.",
+        desc: "As a Frontend Developer, I specialize in creating scalable React applications optimized for performance and user engagement. By leveraging design patterns, clean architecture, and modern tools like Next.js, l've delivered high-impact solutions that drive results, such as improving user engagement by 40% and achieving near-perfect performance scores in Lighthouse.",
         className: "md:col-span-2", // change to md:col-span-2
         thumbnail: "/exp2.svg",
     },
     {
         id: 3,
         title: "Freelance Dev Project",
-        desc: "Led the dev of a E-commerce for a client, from initial concept to deployment.",
+        desc: "Led the dev of a E-commerce for a client, from initial concept to deployment. Reduce page load time while supporting multiple products. Implemented a custom CMS for easy content management. Conducted exhaustive testing on each feature, ensuring an optimal user experience.",
         className: "md:col-span-2", // change to md:col-span-2
         thumbnail: "/exp3.svg",
     },
