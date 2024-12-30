@@ -1,42 +1,76 @@
 'use client';
+
+import { Card } from "@/components/ui/card";
 import animationData from "@/data/confetti.json";
 import { cn } from "@/lib/utils";
-import React, { useState } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import React, { useRef, useState } from "react";
+import { FaCode, FaGlobe } from 'react-icons/fa';
 import { IoCopyOutline } from "react-icons/io5";
 import Lottie from "react-lottie";
-import { BackgroundGradientAnimation } from "./GradientBg";
 import { GlobeDemo } from "./GridGlobe";
 import MagicButton from "./MagicButton";
-export const BentoGrid = ({
-    className,
-    children,
-}: {
+
+// Animaciones refinadas
+const GRID_ITEM_VARIANTS = {
+    hidden: { opacity: 0, y: 20 },
+    visible: (i: number) => ({
+        opacity: 1,
+        y: 0,
+        transition: {
+            delay: i * 0.1,
+            duration: 0.6,
+            ease: [0.21, 0.45, 0.27, 0.9]
+        }
+    }),
+    hover: {
+        scale: 1.02,
+        transition: {
+            duration: 0.3,
+            ease: "easeInOut"
+        }
+    }
+};
+
+interface BentoGridProps {
     className?: string;
     children?: React.ReactNode;
-}) => {
+}
+
+// BentoGrid.tsx
+export const BentoGrid: React.FC<BentoGridProps> = ({ className, children }) => {
+    const ref = useRef<HTMLDivElement>(null);
+    const { scrollYProgress } = useScroll({
+        target: ref,
+        offset: ["start end", "end start"]
+    });
+
+    const opacity = useTransform(scrollYProgress, [0, 0.5], [0, 1]);
+    const scale = useTransform(scrollYProgress, [0, 0.5], [0.8, 1]);
+
     return (
-        <div
+        <motion.div
+            ref={ref}
+            style={{ opacity, scale }}
             className={cn(
-                // change gap-4 to gap-8, change grid-cols-3 to grid-cols-5, remove md:auto-rows-[18rem], add responsive code
-                "grid grid-cols-1 md:grid-cols-6 lg:grid-cols-5 md:grid-row-7 gap-4 lg:gap-10 mx-auto",
+                //estructura de grid
+                "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 auto-rows-[minmax(320px,auto)]",
+                "gap-4 lg:gap-6",
+                "container mx-auto px-4 sm:px-6 lg:px-8 py-12",
+                // Efectos de fondo y profundidad mejorados
+                "relative z-10",
+                "after:absolute after:inset-0 after:-z-10",
+                "after:bg-[radial-gradient(ellipse_at_center,theme(colors.indigo.500/10)_0%,transparent_70%)]",
+                "dark:after:bg-[radial-gradient(ellipse_at_center,theme(colors.purple.300)_0%,transparent_70%)]",
                 className
             )}
         >
             {children}
-        </div>
+        </motion.div>
     );
 };
 
-export const BentoGridItem = ({
-    className,
-    title,
-    description,
-    img,
-    imgClassName,
-    titleClassName,
-    spareImg,
-    id,
-}: {
+interface BentoGridItemProps {
     className?: string;
     title?: string | React.ReactNode;
     description?: string | React.ReactNode;
@@ -47,120 +81,179 @@ export const BentoGridItem = ({
     imgClassName?: string;
     titleClassName?: string;
     spareImg?: string;
+}
+
+export const BentoGridItem: React.FC<BentoGridItemProps> = ({
+    className,
+    title,
+    description,
+    img,
+    imgClassName,
+    titleClassName,
+    spareImg,
+    id = 0,
 }) => {
+    const [isHovered, setIsHovered] = useState(false);
     const [copied, setCopied] = useState(false);
+
     const handleCopy = () => {
-
-        const text = "anderson.dev17@gmail.com";
-        navigator.clipboard.writeText(text);
+        navigator.clipboard.writeText("anderson.dev17@gmail.com");
         setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
     };
+
     return (
-        <div
-            className={cn(
-                "row-span-1 relative overflow-hidden rounded-3xl border group/bento hover:shadow-xl transition duration-200 shadow-input dark:shadow-none justify-between flex flex-col space-y-4 border-white-100/[0.9]",
-                className
-            )}
-            style={{
-                background: "rgb(4,7,29)",
-                backgroundColor:
-                    "linear-gradient(90deg, rgba(4,7,29,1) 0%, rgba(12,14,35,1) 100%)",
-            }}
+        <motion.div
+            variants={GRID_ITEM_VARIANTS}
+            custom={id}
+            whileHover="hover"
+            onHoverStart={() => setIsHovered(true)}
+            onHoverEnd={() => setIsHovered(false)}
         >
-            <div className={`${id === 6 && "flex justify-center"} h-full`}>
-                <div className="w-full h-full absolute">
-                    {img && (
-                        <img
-                            src={img}
-                            alt={img}
-                            className={cn(imgClassName, "object-cover object-center ")}
-                        />
-                    )}
-                </div>
-                <div
-                    className={`absolute right-0 -bottom-5 ${id === 5 && "w-full opacity-80"
-                        } `}
-                >
-                    {spareImg && (
-                        <img
-                            src={spareImg}
-                            alt={spareImg}
-                            width={220}
-                            className="object-cover object-center w-full h-full"
-                        />
-                    )}
-                </div>
-                {id === 6 && (
-                    // add background animation , remove the p tag
-                    <BackgroundGradientAnimation>
-                        {/*     <div className="absolute z-50 inset-0 flex items-center justify-center text-white font-bold px-4 pointer-events-none text-3xl text-center md:text-4xl lg:text-7xl"></div>
-                    */} </BackgroundGradientAnimation>
+            <Card
+                className={cn(
+                    "relative overflow-hidden rounded-3xl border group/bento",
+                    "h-full min-h-[320px]",
+                    "hover:shadow-2xl hover:shadow-purple-500/10 dark:hover:shadow-blue-500/20",
+                    "hover:border-purple-500/20 dark:hover:border-blue-500/20",
+                    "transition-all duration-500 ease-out",
+                    "bg-white/5 dark:bg-black/5",
+                    "backdrop-blur-sm",
+                    className
                 )}
-                <div className={cn(titleClassName, 'group-hover/bento:translate-x-2 transition duration-200 relative md:h-full min:h-full min-h-40 flex flex-col px-5 p-5 lg:10')}>
-                    <div className="font-sans font-normal text-extralight text-[#c1c2d3] text-sm md:text-xs lg:text-base z-10">
-                        {description}
-                    </div>
-                    <div className="font-sans font-bold text-lg lg:text-xl max-w-96 z-10">
-                        {title}
-                    </div>
-
-                    {id === 2 && <GlobeDemo />}
-
-                    {id === 3 && (
-                        <div className="flex gap-1 lg:gap-5 w-fit absolute -right-2">
-                            <div className="flex flex-col gap-3 lg:gap-8">
-                                {['Node.js', 'TypeScript', 'TailwindCSS'].map((item) => (
-                                    <span
-                                        key={item}
-                                        className="py-2 lg:py4 lg:px-3 px-3 text-xs lg:text-base opacity-50 lg:opacity-100 rounded-lg text-center bg-[#10132E]"
-                                    >
-                                        {item}
-                                    </span>
-                                ))}
-                                <span className="py-4 px-3 rounded-lg text-center bg-[#10132E]" />
-                            </div>
-                            <div className="flex flex-col gap-3 lg:gap-8">
-                                <span className="py-4 px-3 rounded-lg text-center bg-[#10132E]" />
-                                {['React.js', 'Node.js', 'JavaScript'].map((item) => (
-                                    <span
-                                        key={item}
-                                        className="py-2 lg:py4 lg:px-3 px-3 text-xs lg:text-base opacity-50 lg:opacity-100 rounded-lg text-center bg-[#10132E]"
-                                    >
-                                        {item}
-                                    </span>
-                                ))}
-                            </div>
-                        </div>
-                    )}
-
-                    {id === 6 && (
-                        <div className="mt-5 relative">
-                            <div className={`absolute -bottom-5 right-0 ${copied ? "block" : "hidden"
-                                }`}
-                            >
-                                <Lottie options={{
-                                    loop: copied,
-                                    autoplay: copied,
-                                    animationData,
-                                    rendererSettings: {
-                                        preserveAspectRatio: "xMidYMid slice"
-                                    }
-                                }} />
-                            </div>
-                            <MagicButton
-                                title={copied ? "Email is Copied!" : "Copy my email address"}
-                                icon={<IoCopyOutline />}
-                                position="left"
-                                handleclick={handleCopy} // Change handleClick to handleclick
-                                otherclasses="!bg-[#161A31]"
-                            />
-                        </div>
-                    )}
-
+            >
+                {/* Efecto de brillo */}
+                <div className="absolute inset-0 opacity-0 group-hover/bento:opacity-100 transition-opacity duration-500">
+                    <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 via-transparent to-blue-500/10" />
+                    <div className="absolute inset-0 bg-noise opacity-20" />
                 </div>
-                {/* <div className="group-hover/bento:translate-x-2 transition duration-200">
-                </div> */}
-            </div>
+
+                {/* Contenido */}
+                <div className="relative h-full p-6 flex flex-col">
+                    {img && (
+                        <div className="absolute inset-0 z-0">
+                            <motion.img
+                                src={img}
+                                alt={typeof title === 'string' ? title : 'Grid item'}
+                                className={cn(
+                                    "object-cover w-full h-full",
+                                    "opacity-50 dark:opacity-40",
+                                    "transition-all duration-500",
+                                    "group-hover/bento:scale-105 group-hover/bento:opacity-60",
+                                    imgClassName
+                                )}
+                                initial={false}
+                                animate={isHovered ? { scale: 1.05 } : { scale: 1 }}
+                                transition={{ duration: 0.4 }}
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/50 to-transparent" />
+                        </div>
+                    )}
+
+                    <motion.div
+                        className={cn(
+                            "relative z-10 flex flex-col h-full",
+                            "space-y-4",
+                            titleClassName
+                        )}
+                        initial={false}
+                        animate={isHovered ? { y: -5 } : { y: 0 }}
+                        transition={{ duration: 0.3 }}
+                    >
+                        {/* Título con iconos */}
+                        <div className="flex items-center gap-2">
+                            {id === 2 && <FaGlobe className="text-purple-500" />}
+                            {id === 3 && <FaCode className="text-blue-500" />}
+                            <h3 className="text-xl font-semibold bg-clip-text text-transparent bg-gradient-to-br from-foreground to-foreground/80">
+                                {title}
+                            </h3>
+                        </div>
+
+                        {description && (
+                            <p className="text-sm text-muted-foreground/90">
+                                {description}
+                            </p>
+                        )}
+
+                        {/* Componentes específicos */}
+                        {id === 2 && <GlobeDemo />}
+                        {id === 3 && <TechStack />}
+                        {id === 6 && (
+                            <div className="mt-auto">
+                                <EmailCopy copied={copied} onCopy={handleCopy} />
+                            </div>
+                        )}
+                    </motion.div>
+                </div>
+            </Card>
+        </motion.div>
+    );
+};
+
+// Componentes auxiliares mejorados...
+const TechStack = () => {
+    const technologies = [
+        ['Node.js', 'TypeScript', 'TailwindCSS'],
+        ['React.js', 'Next.js', 'JavaScript']
+    ];
+
+    return (
+        <div className="grid grid-cols-2 gap-3 mt-auto">
+            {technologies.map((column, colIndex) => (
+                <div key={colIndex} className="space-y-2">
+                    {column.map((tech) => (
+                        <motion.span
+                            key={tech}
+                            className="block px-3 py-1.5 text-xs font-medium rounded-lg
+                                     bg-muted/50 hover:bg-muted/70
+                                     text-foreground/70 hover:text-foreground
+                                     transition-colors duration-200
+                                     cursor-pointer"
+                            whileHover={{ scale: 1.02, x: 3 }}
+                            whileTap={{ scale: 0.98 }}
+                        >
+                            {tech}
+                        </motion.span>
+                    ))}
+                </div>
+            ))}
         </div>
     );
 };
+
+const EmailCopy = ({ copied, onCopy }: { copied: boolean; onCopy: () => void }) => (
+    <div className="mt-5 relative flex items-center justify-center">
+        {copied && (
+            <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                className={` absolute -buttom-5 -top-12 left-1/2 -translate-x-1/2 ${copied ? "block" : "hidden"
+                    }`}
+            >
+                <Lottie options={{
+                    loop: copied,
+                    autoplay: copied,
+                    animationData,
+                    rendererSettings: {
+                        preserveAspectRatio: "xMidYMid slice"
+                    }
+                }} />
+            </motion.div>
+        )}
+        <MagicButton
+            title={copied ? "¡Email copiado!" : "Copiar email"}
+            icon={<IoCopyOutline />}
+            position="left"
+            handleclick={onCopy}
+            otherclasses={cn(
+                "w-full",
+                "bg-muted/80 hover:bg-muted",
+                "text-foreground/90 hover:text-foreground",
+                "transition-colors duration-200"
+            )}
+        />
+    </div>
+);
+
+export default BentoGrid;

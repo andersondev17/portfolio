@@ -8,65 +8,71 @@ export const navItems = [
 export const gridItems = [
     {
         id: 1,
-        title: "I prioritize client collaboration, fostering open communication ",
-        description: "",
-        className: "lg:col-span-2 md:col-span-6 md:row-span-4 lg:row-span-3 lg:min-h-[50vh]",
-        imgClassName: "w-full h-full",
+        title: "Client-Focused Development",
+        description: "I prioritize strong client relationships through open communication and collaborative problem-solving.",
+        className: "lg:col-span-2 row-span-1",
+        imgClassName: "w-full h-full object-cover opacity-40",
         titleClassName: "justify-end",
         img: "/b1.svg",
         spareImg: "",
+        category: "approach"
     },
     {
         id: 2,
-        title: "I'm very flexible with time zone communications",
-        description: "",
-        className: "lg:col-span-2 lg:row-span-1 md:col-span-6 md:row-span-4",
+        title: "Global Collaboration",
+        description: "Working seamlessly across time zones with a commitment to clear communication and flexible scheduling.",
+        className: "lg:row-span-2",
         imgClassName: "",
         titleClassName: "justify-start",
         img: "",
         spareImg: "",
+        category: "workflow",
+        component: "globe" // Componente especial para el globo
     },
     {
         id: 3,
-        title: "My tech stack",
-        description: "Javascript(ES6), React.js,  Node.js, HTML5, CSS3, Tailwind, SQL, GitHub, Figma",
-        className: "lg:col-span-2 md:col-span-3 md:row-span-2",
+        title: "Technical Expertise",
+        description: "Modern tech stack focused on delivering robust and scalable solutions",
+        className: "lg:col-span-2",
         imgClassName: "",
         titleClassName: "justify-center",
-        img: "",
-        spareImg: "",
+        component: "tech-stack",
+        technologies: {
+            frontend: ["React", "Next.js", "TypeScript", "Tailwind CSS"],
+            backend: ["Node.js", "Express", "PostgreSQL"],
+            tools: ["Git", "Docker", "AWS"]
+        }
     },
     {
         id: 4,
-        title: "Tech enthusiast with a passion for development.",
-        description: "Problem-solving, teamwork, resiliency, resourcefulness, multitasking, attention to detail",
-        className: "lg:col-span-2 md:col-span-3 md:row-span-1",
-        imgClassName: "",
-        titleClassName: "justify-start",
+        title: "Innovation Focus",
+        description: "Passion for creating cutting-edge solutions with attention to detail and modern best practices.",
+        className: "lg:col-span-1 row-span-1",
         img: "/grid.svg",
-        spareImg: "/b4.svg",
+        category: "approach"
     },
-
     {
         id: 5,
-        title: "Building an app that will revolutionize the way barbers manage their businesses.",
-        description: "The Inside Scoop",
-        className: "md:col-span-3 md:row-span-2 lg:col-span-2 lg:row-span-3",
-        imgClassName: "absolute right-0 bottom-0 md:w-96 w-60",
-        titleClassName: "md:col-span-2 md:row-span-1 lg:col-span-3 lg:row-span-2",
+        title: "Featured Project: Barber Management App",
+        description: "Revolutionizing business management for barbers with smart scheduling and client management.",
+        className: "lg:col-span-3",
+        imgClassName: "right-0 bottom-0 w-full h-64 object-cover",
         img: "/b5.svg",
-        spareImg: "/grid.svg",
+        category: "project",
+        stats: {
+            users: "500+",
+            appointments: "10k+",
+            satisfaction: "98%"
+        }
     },
     {
         id: 6,
-        title: "Do you want to start a project together?",
-        description: "",
-        className: "lg:col-span-2 lg:row-span-2 md:col-span-3 md:row-span-1",
-        imgClassName: "",
-        titleClassName: "lg:col-span-3 md:col-span-3 md:row-span-1",
-        img: "",
-        spareImg: "",
-    },
+        title: "Let's Build Something Amazing",
+        description: "Ready to transform your ideas into reality? Let's collaborate!",
+        className: "lg:col-span-2",
+        component: "contact",
+        category: "cta"
+    }
 ];
 
 export const projects = [
@@ -158,7 +164,7 @@ export const socialMedia = [
     {
         id: 1,
         img: "/git.svg",
-        link: "https://github.com/TheGodFatherpte"
+        link: "https://github.com/andersondev17"
     },
     {
         id: 3,

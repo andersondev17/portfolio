@@ -1,117 +1,138 @@
 'use client';
-import MagicButton from "@/components/ui/MagicButton";
+
 import { cn } from "@/lib/utils";
 import {
     AnimatePresence,
     motion,
-    useMotionValue,
     useScroll,
-    useTransform,
+    useTransform
 } from "framer-motion";
+import { useTheme } from "next-themes";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
-import { FaBriefcase } from "react-icons/fa";
+import { useEffect, useState } from "react";
+import { MdOutlineDarkMode, MdOutlineLightMode } from "react-icons/md";
 
-
+interface NavItem {
+    name: string;
+    link: string;
+}
 
 export const FloatingNav = ({
     navItems,
     className,
 }: {
-    navItems: {
-        name: string;
-        link: string;
-    }[];
+    navItems: NavItem[];
     className?: string;
 }) => {
+    const [activeSection, setActiveSection] = useState<string>("home");
+    const [isScrolled, setIsScrolled] = useState(false);
+    const { theme, setTheme } = useTheme();
     const { scrollYProgress } = useScroll();
-    const ref = useRef(null);
-    const [expanded, setExpanded] = useState(false);
-    const [hoveringItem, setHoveringItem] = useState<number | null>(null);
-    const expandedValue = useMotionValue(expanded ? 0 : 1);
+    
+    const translateY = useTransform(scrollYProgress, 
+        [0, 0.05, 1], 
+        [0, 0, -100]
+    );
 
-    // Calcula el movimiento y transformación para el estado de scroll y expansión
-    const translateY = useTransform(scrollYProgress, [0, 0.05, 1], [0, 0, -100]);
-    const borderRadius = useTransform(expandedValue, [0, 1], ["50%", "20px"]);
-    const width = useTransform(expandedValue, [0, 1], ["4rem", "25rem"]);
     useEffect(() => {
-        expandedValue.set(!expanded ? 1 : 0);
-    }, [expanded, expandedValue]);
+        const handleScroll = () => {
+            setIsScrolled(window.scrollY > 20);
+            
+            // Identificar sección activa
+            const sections = navItems.map(item => item.link.replace("#", ""));
+            const scrollPosition = window.scrollY + 100;
+
+            for (const section of sections) {
+                const element = document.getElementById(section);
+                if (element) {
+                    const { offsetTop, offsetHeight } = element;
+                    if (scrollPosition >= offsetTop && 
+                        scrollPosition < offsetTop + offsetHeight) {
+                        setActiveSection(section);
+                        break;
+                    }
+                }
+            }
+        };
+
+        window.addEventListener("scroll", handleScroll);
+        return () => window.removeEventListener("scroll", handleScroll);
+    }, [navItems]);
 
     return (
-        <div className="relative">
-            <AnimatePresence mode="wait">
-                <motion.div
-                    ref={ref}
-                    initial={{ opacity: 1 }}
-                    style={{
-                        y: translateY,
-                        borderRadius: borderRadius,
-                        width: width,
-                    }}
-                    transition={{
-                        duration: 0.4,
-                        ease: [0.4, 0, 0.2, 1],
-                    }}
+        <motion.div 
+            className="fixed top-0 left-0 right-0 z-[5000] flex justify-center"
+            style={{ y: translateY }}
+        >
+            <AnimatePresence>
+                <motion.nav
+                    initial={{ y: -100, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
                     className={cn(
-                        "flex fixed top-10 inset-x-0 mx-auto overflow-hidden shadow-lg z-[5000] px-4 py-3 items-center justify-center space-x-4 border border-white/[0.2] bg-black/80 backdrop-blur-md",
-                        className
+                        "mt-5 px-6 py-3 rounded-full flex items-center gap-2",
+                        "backdrop-blur-md border border-white/10",
+                        isScrolled ? 
+                        "bg-[#1C1C1E]/80" : 
+                            "bg-black/80 shadow-lg shadow-purple/20" ,
+                        "transition-all duration-300 ease-in-out",
                     )}
                 >
-                    {navItems.map((navItem: { name: string; link: string }, idx: number) => (
+                    {navItems.map((item, idx) => (
                         <Link
-                            key={`${navItem.link}-${idx}`}
-                            href={navItem.link}
-                            className={cn(
-                                "relative text-neutral-50 items-center flex space-x-1 transition-opacity duration-300",
-                                {
-                                    "opacity-1 ": expanded,
-                                }
-                            )}
-                            onMouseEnter={() => setHoveringItem(idx)}
-                            onMouseLeave={() => setHoveringItem(null)}
+                            key={`${item.link}-${idx}`}
+                            href={item.link}
+                            scroll={true}
                         >
-                            {/* Fondo degradado sutil */}
                             <motion.div
-                                className="absolute inset-0 bg-gradient-to-br from-purple-500 to-pink-500 opacity-10 rounded-full blur-sm group-hover:opacity-20 transition-opacity"
-                                style={{ borderRadius }}
-                            />
-
-                            {/* Borde animado */}
-                            <motion.div
-                                className="absolute inset-0 border-2 border-white rounded-full opacity-0 group-hover:opacity-80 transition-opacity"
-                                style={{ borderRadius }}
-                            />
-
-                            {/* Texto del enlace con animación al pasar el ratón */}
-                            <motion.span
-                                className="z-10 relative text-sm font-semibold"
-                                animate={{ scale: hoveringItem === idx ? 1.2 : 1 }}
-                                whileHover={{ scale: 1.3 }}
-                                transition={{ duration: 0.3 }}
+                                className={cn(
+                                    "relative px-4 py-2 rounded-full",
+                                    "text-sm font-medium transition-colors",
+                                    "hover:text-white cursor-pointer",
+                                    activeSection === item.link.replace("#", "") ?
+                                        "text-white" : "text-gray-500 ",
+                                )}
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
                             >
-                                {navItem.name}
-                            </motion.span>
+                                {item.name}
+                                {activeSection === item.link.replace("#", "") && (
+                                    <motion.div
+                                        className="absolute inset-0 rounded-full bg-white/10"
+                                        layoutId="active-nav"
+                                        transition={{
+                                            type: "spring",
+                                            stiffness: 380,
+                                            damping: 30
+                                        }}
+                                    />
+                                )}
+                            </motion.div>
                         </Link>
                     ))}
-                </motion.div>
-            </AnimatePresence>
 
-            <motion.div
-                className="absolute top-40 right-4 transform -translate-y-1/2 z-50 sm:right-10"
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.5 }} // Slight delay for smoother appearance
-            >
-                <a href="mailto:anderson.dev17@gmail.com">
-                    <MagicButton
-                        title="Hire Me"
-                        icon={<FaBriefcase />}
-                        position="right"
-                        otherclasses="!bg-purple-500 hover:!bg-green-700 sm:px-4 sm:py-2"
-                    />
-                </a>
-            </motion.div>
-        </div>
+                    <button
+                        onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+                        className={cn(
+                            "p-2 rounded-full",
+                            "hover:bg-white/10 transition-colors",
+                            "text-gray-400 hover:text-white"
+                        )}
+                        aria-label="Toggle theme"
+                    >
+                        <motion.div
+                            initial={false}
+                            animate={{ rotate: theme === "dark" ? 0 : 180 }}
+                            transition={{ duration: 0.3 }}
+                        >
+                            {theme === "dark" ? (
+                                <MdOutlineLightMode size={20} />
+                            ) : (
+                                <MdOutlineDarkMode size={20} />
+                            )}
+                        </motion.div>
+                    </button>
+                </motion.nav>
+            </AnimatePresence>
+        </motion.div>
     );
 };
