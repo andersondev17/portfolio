@@ -45,15 +45,16 @@ const Hero = () => {
                         transition={{ duration: 0.5, delay: 0.2 }}
                         className="text-center tracking-wide mb-8 text-sm md:text-lg lg:text-xl text-gray-600 dark:text-gray-300"
                     >
-                        <TextGenerateEffect
-                            className="heading text-foreground"
-                            words="Transforming modern concepts into seamless user experiences"
-                        />
-                        <p className="max-w-[42rem] mx-auto text-base sm:text-lg text-muted-foreground">
+                        <div className="heading text-foreground">
+                            <TextGenerateEffect
+                                words="Transforming modern concepts into seamless user experiences"
+                            />
+                        </div>
+                        <div className="max-w-[42rem] mx-auto text-base sm:text-lg text-muted-foreground">
                             I'm Anderson, a software developer based in Colombia. 
                             Specializing in creating exceptional digital experiences 
                             with modern web technologies.
-                        </p>
+                        </div>
                     </motion.p>
 
                     <motion.div 

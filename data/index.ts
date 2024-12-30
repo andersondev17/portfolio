@@ -78,28 +78,37 @@ export const gridItems = [
 export const projects = [
     {
         id: 1,
-        title: "Survey Master",
-        des: "is a single-page web application designed to get appointed with a survey.",
-        img: "/p1.png",
-        iconLists: ["nodejs.svg","/re.svg", "/tail.svg"],
-        link: "https://spin-website-graphics-iucy-nara3wyvv-thegodfatherptes-projects.vercel.app/",
-    },
-    {
-        id: 2,
         title: "E commerce platform",
         des: "Enjoy a seamless user experience as you select ingredients, customize toppings, and explore various bread options..",
         img: "/p2.png",
-        iconLists: ["nodejs.svg","/re.svg", "/tail.svg", "https://www.vectorlogo.zone/logos/mysql/mysql-icon.svg","/laravel-2.svg"],
-        link: "https://github.com/andersondev17",
+        iconLists: ["nodejs.svg", "/re.svg", "/tail.svg", "https://www.vectorlogo.zone/logos/mysql/mysql-icon.svg", "/laravel-2.svg"],
+        link: "https://sanguches.com.co/",
+    },
+    {
+        id: 2,
+        title: "AMMAE",
+        des: "MERN Shopping store and product management with API Rest using Mongoose shadcn.",
+        img: "/p3.png",
+        iconLists: ["next.svg", "/ts.svg", "/tail.svg", "mongo-icon.svg"],
+        link: "https://github.com/andersondev17/AMMAE",
     },
     {
         id: 3,
-        title: "AMMAE",
-        des: "Discover our exclusive collection of women's fashion. Shop now and elevate your style.",
-        img: "/p3.jpg",
-        iconLists: ["nodejs.svg","/re.svg", "/tail.svg", "mongo-icon.svg"],
-        link: "https://github.com/andersondev17",
-    }
+        title: "🎯 Brand Registration System",
+        des: "Brand registration management system built with Next.js 15. This application provides a complete CRUD interface for managing brand registrations with a sleek, user-friendly design.",
+        img: "/p4.png",
+        iconLists: ["next.svg", "/ts.svg", "/tail.svg"],
+        link: "https://brand-registry.vercel.app/",
+
+    },
+    {
+        id: 3,
+        title: "Survey Master",
+        des: "is a single-page web application designed to get appointed with a survey.",
+        img: "/p1.png",
+        iconLists: ["nodejs.svg", "/re.svg", "/tail.svg"],
+        link: "https://spin-website-graphics-iucy-nara3wyvv-thegodfatherptes-projects.vercel.app/",
+    },
 ];
 
 export const testimonials = [
@@ -157,7 +166,7 @@ export const workExperience = [
         className: "md:col-span-2", // change to md:col-span-2
         thumbnail: "/exp3.svg",
     },
-    
+
 ];
 
 export const socialMedia = [
