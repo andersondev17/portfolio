@@ -1,6 +1,7 @@
 
 import { motion } from "framer-motion"
 import { FaBriefcase, FaLocationArrow } from "react-icons/fa"
+import ProfileAvatar from "./ProfileAvatar"
 import MagicButton from "./ui/MagicButton"
 import { Spotlight } from "./ui/Spotlight"
 import { TextGenerateEffect } from "./ui/text-generate-effect"
@@ -25,7 +26,7 @@ const Hero = () => {
                 {/* Grain effect overlay */}
                 <div className="absolute inset-0 bg-[url('/noise.png')] opacity-[0.02] pointer-events-none"></div>
             </div>
-
+            
             <div className="relative z-10 flex items-center justify-center min-h-[calc(100vh-8rem)]">
                 <div className="max-w-[89vw] md:max-w-2xl lg:max-w-[60vw] space-y-8">
                     <motion.div 
@@ -50,6 +51,7 @@ const Hero = () => {
                                 words="Transforming modern concepts into seamless user experiences"
                             />
                         </div>
+                        <ProfileAvatar />
                         <div className="max-w-[42rem] mx-auto text-base sm:text-lg text-muted-foreground">
                             I'm Anderson, a software developer based in Colombia. 
                             Specializing in creating exceptional digital experiences 
