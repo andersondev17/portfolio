@@ -8,9 +8,19 @@ import Image from "next/image";
 import React, { useRef, useState } from "react";
 import { FaCode, FaGlobe } from 'react-icons/fa';
 import { IoCopyOutline } from "react-icons/io5";
-import Lottie from "react-lottie";
+
+import dynamic from "next/dynamic";
 import { GlobeDemo } from "./GridGlobe";
+import LoadingPlaceholder from "./loading/LoadingPlaceholder";
 import MagicButton from "./MagicButton";
+
+
+// Actualizar el import en tu GlobeDemo:
+// Importación dinámica de Lottie
+const Lottie = dynamic(() => import('react-lottie'), {
+    ssr: false,
+    loading: () => <LoadingPlaceholder />
+});
 
 // Animaciones refinadas
 const GRID_ITEM_VARIANTS = {

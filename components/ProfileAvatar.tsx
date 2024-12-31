@@ -15,12 +15,9 @@ const ProfileAvatar = memo(() => (
       loading="eager"
       quality={75}
       placeholder="blur"
-      blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRg..."  // Añadir un pequeño placeholder blur
+      blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRg..." 
       className="object-cover transition-opacity duration-300"
-      sizes="(max-width: 768px) 96px, 96px"
-      onLoadingComplete={(image) => {
-        image.classList.remove('opacity-0');
-      }}
+      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
     />
   </div>
 ));

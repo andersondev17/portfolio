@@ -19,20 +19,19 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "Anderson's Portfolio",
-  description: "Frontend developer specialized in creating responsive and intuitive digital experiences with React and modern web technologies.",
-  robots: "index, follow",
-  verification: {
-    google: "tu-verification-code",
+  title: {
+    template: '%s | Anderson Lopez Portfolio',
+    default: "Anderson Lopez | Frontend Developer"
   },
-  appleWebApp: {
-    capable: true,
-    statusBarStyle: 'black-translucent',
-    title: "Anderson's Portfolio"
-  },
-  applicationName: "Anderson's Portfolio",
-  formatDetection: {
-    telephone: false
+  description: "Frontend Developer specialized in React ecosystem, creating responsive and intuitive digital experiences",
+  keywords: ["Frontend Developer", "React", "JavaScript", "TypeScript", "Web Development"],
+  authors: [{ name: "Anderson Lopez" }],
+  openGraph: {
+    title: "Anderson Lopez | Frontend Developer",
+    description: "Creating seamless user experiences with modern web technologies",
+    type: "website",
+    locale: "en_US",
+    url: "https://portfolio-deploy-ebon.vercel.app/"
   }
 };
 
@@ -44,6 +43,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" type="image/png" href="/metaIcon.png" sizes="any" />
       </head>
       <body className={inter.className}>

@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { memo, useCallback } from "react";
 
 import { CanvasRevealEffect } from "@/components/ui/Canvas-reveal-effect";
 import { AnimatePresence, motion } from "framer-motion";
@@ -48,7 +48,7 @@ const Approach = () => {
     );
 }
 
-const Card = ({
+const Card = memo(({
     title,
     icon,
     children,
@@ -60,10 +60,13 @@ const Card = ({
     description? :string;
 }) => {
     const [hovered, setHovered] = React.useState(false);
+    const handleMouseEnter = useCallback(() => setHovered(true), []);
+    const handleMouseLeave = useCallback(() => setHovered(false), []);
+
     return (
         <div
-            onMouseEnter={() => setHovered(true)}
-            onMouseLeave={() => setHovered(false)}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
             className="border border-black/[0.2] group/canvas-card flex items-center justify-center dark:border-white/[0.2]  max-w-sm w-full mx-auto p-4 lg:h[35rem] h-[30rem] relative rounded-3xl"
         >
             <Icon className="absolute h-6 w-6 -top-3 -left-3 dark:text-white text-black" />
@@ -96,8 +99,11 @@ const Card = ({
                 </h2>
             </div>
         </div>
-    );
-};
+    );  
+}
+);
+
+
 
 const AceternityIcon = ({ order }: { order?: any }) => {
     return (

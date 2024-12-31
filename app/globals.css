@@ -129,3 +129,22 @@
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+@layer utilities {
+  .prevent-layout-shift {
+    content-visibility: auto;
+    contain-intrinsic-size: 0 320px;
+  }
+
+  .grid-item {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+    contain: size layout;
+  }
+
+  .image-wrapper {
+    aspect-ratio: 16/9;
+    position: relative;
+    overflow: hidden;
+  }
+}

@@ -8,9 +8,21 @@ import { useTheme } from "next-themes";
 import dynamic from 'next/dynamic';
 import { Suspense } from 'react';
 
-// Pre-load el Hero para mejor LCP
-import Hero from "@/components/Hero";
 
+const LoadingPlaceholder = dynamic(() => import('@/components/ui/loading/LoadingPlaceholder'), {
+  ssr: true
+});
+
+// Pre-load el Hero 
+const Hero = dynamic(() => import("@/components/Hero"), {
+  loading: () => (
+    <LoadingPlaceholder 
+      text="Preparing an amazing experience..." 
+      height="h-screen"
+    />
+  ),
+  ssr: false
+});
 // Componente de loading con skeleton
 const LoadingSection = () => (
   <div className="w-full h-96 animate-pulse bg-gradient-to-r from-gray-200 to-gray-300 dark:from-gray-800 dark:to-gray-700 rounded-xl" />
@@ -83,7 +95,7 @@ export default function Home() {
 
         <FloatingNav navItems={navItems} />
         
-        <div className=" mx-auto  relative">
+        <div className="grid gap-32">
           {/* Hero Section con parallax */}
           <motion.div
             style={{ scale, rotateX, opacity }}
@@ -97,7 +109,7 @@ export default function Home() {
 
           {/* Contenido Principal */}
           <Suspense fallback={<LoadingSection />}>
-            <div className="space-y-32">
+            <div>
               <AnimatedSection id="about">
                 <Grid />
               </AnimatedSection>
@@ -113,7 +125,7 @@ export default function Home() {
               <AnimatedSection id="approach" delay={0.25}>
                 <Approach />
               </AnimatedSection>
-              <AnimatedSection id="contact" delay={0.25}>
+              <AnimatedSection id="contact" delay={0}>
                 <Footer />  
               </AnimatedSection>
             

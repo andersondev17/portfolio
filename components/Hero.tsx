@@ -7,21 +7,23 @@ import TextGenerateEffect from './ui/text-generate-effect';
 
 
 const Spotlight = dynamic(() => {
-    return import('./ui/Spotlight').then((module) => module.Spotlight);  }, { ssr: false });
+    return import('./ui/Spotlight').then((module) => module.Spotlight);
+}, { ssr: false });
 
 // Priorizar texto principal con preload
 const MainContent = memo(() => (
     <div className="space-y-4">
         <TextGenerateEffect
-            words="Transforming Modern Concepts Into Seamless User Experiences"
+            words="Crafting Scalable Solutions For Seamless User Experiences"
             className="text-center text-3xl md:text-4xl lg:text-5xl font-bold"
             priority={true} // Mantener como prioridad
             duration={0.2} // Reducir la duración
             filter={false} // Deshabilitar efectos complejos
         />
         <p className="text-lg text-center max-w-2xl mx-auto">
-            Software Developer specializing in creating scalable web applications
-            with modern technologies and best practices.
+            I'm Anderson, a Developer based in Colombia.
+            Specializing in creating dynamic web applications. My expertise lies in transforming ideas into reality.
+
         </p>
 
     </div>

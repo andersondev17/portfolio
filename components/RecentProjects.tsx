@@ -37,7 +37,7 @@ const RecentProjects = () => {
             opacity: 1,
             y: 0,
             transition: {
-                duration: 0.6,
+                duration: 0.15,
                 ease: "easeOut"
             }
         }
