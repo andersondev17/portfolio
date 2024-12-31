@@ -1,6 +1,7 @@
 import { socialMedia } from "@/data";
 import { motion } from "framer-motion";
 import { FaFileDownload, FaLocationArrow } from "react-icons/fa";
+import DynamicProfileAvatar from "./ProfileAvatar";
 import MagicButton from "./ui/MagicButton";
 import { Spotlight } from "./ui/Spotlight";
 
@@ -32,6 +33,7 @@ const Footer = () => {
                     viewport={{ once: true }}
                     transition={{ duration: 0.6 }}
                 >
+                    <DynamicProfileAvatar />
                     <h1 className="heading lg:max-w-[45vw] mx-auto bg-gradient-to-b from-gray-900 to-gray-600 dark:from-white dark:to-white-100 bg-clip-text text-transparent">
                         Ready to take <span className="text-purple">your</span> digital presence
                         <span className="block mt-2">to the next level?</span>

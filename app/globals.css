@@ -111,3 +111,21 @@
     @apply bg-background text-foreground;
   }
 }
+
+.animate-fade-in {
+  will-change: opacity, transform;
+}
+@media (max-width: 768px) {
+  .bg-noise {
+      opacity: 0.01;
+  }
+}
+@media (max-width: 768px) {
+  .spotlight {
+      display: none;
+  }
+}
+@keyframes optimized-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

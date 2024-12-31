@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils";
+import { useEffect } from "react";
 
 type SpotlightProps = {
     className?: string;
@@ -6,6 +7,24 @@ type SpotlightProps = {
 };
 
 export const Spotlight = ({ className, fill }: SpotlightProps) => {
+    useEffect(() => {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                const element = entry.target as HTMLElement;
+                if (entry.isIntersecting) {
+                    element.classList.add('animate-spotlight');
+                } else {
+                    element.classList.remove('animate-spotlight');
+                }
+            });
+        });
+    
+        const spotlight = document.querySelector('.spotlight');
+        if (spotlight) observer.observe(spotlight);
+    
+        return () => observer.disconnect();
+    }, []);
+    
     return (
         <svg
             className={cn(

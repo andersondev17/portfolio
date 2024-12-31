@@ -25,11 +25,14 @@ export const FloatingNav = ({
     const [isVisible, setIsVisible] = useState(true);
     const [lastScrollY, setLastScrollY] = useState(0);
     const { theme, setTheme } = useTheme();
-    
+    const toggleTheme = useCallback(() => {
+        setTheme(theme === "dark" ? "light" : "dark");
+    }, [theme, setTheme]);
+
     // Controlador del scroll mejorado
     const handleScroll = useCallback(() => {
         const currentScrollY = window.scrollY;
-        
+
         // Solo ocultar navbar cuando se scrollea hacia abajo y estamos más allá de 100px
         if (currentScrollY > lastScrollY && currentScrollY > 100) {
             setIsVisible(false);
@@ -45,7 +48,7 @@ export const FloatingNav = ({
             const element = document.getElementById(section);
             if (element) {
                 const { offsetTop, offsetHeight } = element;
-                if (scrollPosition >= offsetTop && 
+                if (scrollPosition >= offsetTop &&
                     scrollPosition < offsetTop + offsetHeight) {
                     setActiveSection(section);
                     break;
@@ -59,7 +62,7 @@ export const FloatingNav = ({
     useEffect(() => {
         // Throttle para optimizar performance
         let throttleTimeout: NodeJS.Timeout | null = null;
-        
+
         const onScroll = () => {
             if (!throttleTimeout) {
                 throttleTimeout = setTimeout(() => {
@@ -77,13 +80,13 @@ export const FloatingNav = ({
     }, [handleScroll]);
 
     return (
-        <motion.div 
+        <motion.div
             className="fixed top-0 left-0 right-0 z-[5000] flex justify-center"
             initial={{ y: -100 }}
-            style={{ 
+            style={{
                 position: 'fixed', // Asegurar posición fija
             }}
-            animate={{ 
+            animate={{
                 y: isVisible ? 0 : -100,
                 transition: {
                     type: "spring",
@@ -93,6 +96,7 @@ export const FloatingNav = ({
             }}
         >
             <motion.nav
+
                 initial={{ y: -100, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 className={cn(
@@ -102,6 +106,7 @@ export const FloatingNav = ({
                     "transition-all duration-300 ease-in-out transform",
                     lastScrollY > 100 ? "translate-y-2" : "translate-y-0"
                 )}
+                role="nav"
             >
                 {/* Resto del código del navbar se mantiene igual */}
                 {navItems.map((item, idx) => (
@@ -136,10 +141,10 @@ export const FloatingNav = ({
                         </motion.div>
                     </Link>
                 ))}
-                
+
                 {/* Se mantiene el theme toggle existente */}
                 <button
-                    onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+                    onClick={toggleTheme}
                     className={cn(
                         "p-2 rounded-full",
                         "hover:bg-white/10 transition-colors",

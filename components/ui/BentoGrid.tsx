@@ -4,6 +4,7 @@ import { Card } from "@/components/ui/card";
 import animationData from "@/data/confetti.json";
 import { cn } from "@/lib/utils";
 import { motion, useScroll, useTransform } from "framer-motion";
+import Image from "next/image";
 import React, { useRef, useState } from "react";
 import { FaCode, FaGlobe } from 'react-icons/fa';
 import { IoCopyOutline } from "react-icons/io5";
@@ -19,14 +20,14 @@ const GRID_ITEM_VARIANTS = {
         y: 0,
         transition: {
             delay: i * 0.1,
-            duration: 0.6,
-            ease: [0.21, 0.45, 0.27, 0.9]
+            duration: 0.4, // Reduce la duración
+            ease: "easeOut", // Animación menos costosa
         }
     }),
     hover: {
         scale: 1.02,
         transition: {
-            duration: 0.3,
+            duration: 0.25,
             ease: "easeInOut"
         }
     }
@@ -46,7 +47,7 @@ export const BentoGrid: React.FC<BentoGridProps> = ({ className, children }) => 
     });
 
     const opacity = useTransform(scrollYProgress, [0, 0.5], [0, 1]);
-    const scale = useTransform(scrollYProgress, [0, 0.5], [0.8, 1]);
+    const scale = useTransform(scrollYProgress, [0, 0.5], [0.95, 1]); // Escala menor
 
     return (
         <motion.div
@@ -54,14 +55,14 @@ export const BentoGrid: React.FC<BentoGridProps> = ({ className, children }) => 
             style={{ opacity, scale }}
             className={cn(
                 //estructura de grid
-                "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 auto-rows-[minmax(320px,auto)]",
+                "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4",
                 "gap-4 lg:gap-6",
-                "container mx-auto px-4 sm:px-6 lg:px-8 py-12",
+                "container mx-auto px-4 py-8",  // Ajustado para dispositivos pequeños
                 // Efectos de fondo y profundidad mejorados
                 "relative z-10",
                 "after:absolute after:inset-0 after:-z-10",
                 "after:bg-[radial-gradient(ellipse_at_center,theme(colors.indigo.500/10)_0%,transparent_70%)]",
-                "dark:after:bg-[radial-gradient(ellipse_at_center,theme(colors.purple.300)_0%,transparent_70%)]",
+                "dark:after:bg-[radial-gradient(ellipse_at_center,theme(colors.purple)_0%,transparent_70%)]",
                 className
             )}
         >
@@ -132,19 +133,19 @@ export const BentoGridItem: React.FC<BentoGridItemProps> = ({
                 <div className="relative h-full p-6 flex flex-col">
                     {img && (
                         <div className="absolute inset-0 z-0">
-                            <motion.img
+                            <Image
                                 src={img}
                                 alt={typeof title === 'string' ? title : 'Grid item'}
+                                fill
+                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                priority={id <= 3} // Prioriza la carga de las primeras imágenes
                                 className={cn(
-                                    "object-cover w-full h-full",
+                                    "object-cover",
                                     "opacity-50 dark:opacity-40",
                                     "transition-all duration-500",
                                     "group-hover/bento:scale-105 group-hover/bento:opacity-60",
                                     imgClassName
                                 )}
-                                initial={false}
-                                animate={isHovered ? { scale: 1.05 } : { scale: 1 }}
-                                transition={{ duration: 0.4 }}
                             />
                             <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/50 to-transparent" />
                         </div>
@@ -180,7 +181,10 @@ export const BentoGridItem: React.FC<BentoGridItemProps> = ({
                         {id === 3 && <TechStack />}
                         {id === 6 && (
                             <div className="mt-auto">
-                                <EmailCopy copied={copied} onCopy={handleCopy} />
+                                <EmailCopy
+                                    copied={copied}
+                                    onCopy={handleCopy}
+                                />
                             </div>
                         )}
                     </motion.div>

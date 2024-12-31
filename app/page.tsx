@@ -110,11 +110,13 @@ export default function Home() {
                 <Experience />
               </AnimatedSection>
 
-              <AnimatedSection id="approach" delay={0.3}>
+              <AnimatedSection id="approach" delay={0.25}>
                 <Approach />
               </AnimatedSection>
-
-              <Footer />
+              <AnimatedSection id="contact" delay={0.25}>
+                <Footer />  
+              </AnimatedSection>
+            
             </div>
           </Suspense>
         </div>
