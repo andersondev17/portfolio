@@ -16,7 +16,7 @@ const Hero = dynamic(() => import("@/components/Hero"), {
 
 // Componente de loading con skeleton
 const LoadingSection = () => (
-  <div className="w-full h-96 animate-pulse bg-gradient-to-r from-gray-200 to-gray-300 dark:from-gray-800 dark:to-gray-700 rounded-xl" />
+  <LoadingSpinner />
 );
 
 // Lazy load de componentes secundarios

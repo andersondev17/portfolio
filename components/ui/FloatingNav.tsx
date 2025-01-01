@@ -1,7 +1,6 @@
 'use client';
 
 import { cn } from '@/lib/utils';
-import { AnimatePresence, motion } from 'framer-motion';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useTheme } from 'next-themes';
@@ -9,12 +8,11 @@ import Link from 'next/link';
 import { memo, useCallback, useEffect, useRef } from 'react';
 import { MdOutlineDarkMode, MdOutlineLightMode } from 'react-icons/md';
 
-// Register GSAP plugins
+// Register GSAP
 if (typeof window !== 'undefined') {
     gsap.registerPlugin(ScrollTrigger);
 }
 
-// Types
 interface NavItem {
     name: string;
     link: string;
@@ -25,57 +23,41 @@ interface FloatingNavProps {
     className?: string;
 }
 
-// Animations config
-const navVariants = {
-    hidden: { y: -100, opacity: 0 },
-    visible: {
-        y: 0,
-        opacity: 1,
-        transition: {
-            type: "spring",
-            stiffness: 260,
-            damping: 20,
-            duration: 0.3
-        }
-    },
-    exit: { y: -100, opacity: 0 }
-};
-
-// Memoized NavItem component for better performance
+// Optimized NavItem component
 const NavItemComponent = memo(({ 
     item, 
-    isActive, 
-    onClick,
+    isActive,
+    onClick 
 }: { 
     item: NavItem; 
-    isActive: boolean; 
+    isActive: boolean;
     onClick: () => void;
-}) => (
-    <Link href={item.link} onClick={onClick} scroll={true}>
-        <motion.div
-            className={cn(
-                "relative px-4 py-2 rounded-full text-sm font-medium",
-                "transition-colors hover:text-white cursor-pointer","nav-hover-btn",
-                isActive ? "text-white" : "text-gray-500"
-            )}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-        >
-            {item.name}
-            {isActive && (
-                <motion.div
-                    className="absolute inset-0 rounded-full bg-white/10"
-                    layoutId="active-nav"
-                    transition={{
-                        type: "spring",
-                        stiffness: 380,
-                        damping: 30
-                    }}
-                />
-            )}
-        </motion.div>
-    </Link>
-));
+}) => {
+    const itemRef = useRef<HTMLDivElement>(null);
+
+    // Lightweight hover effect using CSS transforms for better performance
+    return (
+        <Link href={item.link} onClick={onClick} scroll={false}>
+            <div
+                ref={itemRef}
+                className={cn(
+                    "relative px-2.5 sm:px-4 py-1.5 sm:py-2 rounded-full text-sm font-medium",
+                    "transform transition-transform hover:scale-105",
+                    "hover:text-white cursor-pointer",
+                    isActive ? "text-white" : "text-gray-500"
+                )}
+            >
+                {item.name}
+                {isActive && (
+                    <div 
+                        className="absolute inset-0 rounded-full bg-white/10"
+                        data-active="true"
+                    />
+                )}
+            </div>
+        </Link>
+    );
+});
 
 NavItemComponent.displayName = 'NavItemComponent';
 
@@ -83,20 +65,32 @@ export const FloatingNav = memo(({ navItems, className }: FloatingNavProps) => {
     const navRef = useRef<HTMLDivElement>(null);
     const { theme, setTheme } = useTheme();
     const lastScrollY = useRef(0);
+    const scrollTimeout = useRef<NodeJS.Timeout>();
     const isVisible = useRef(true);
 
-    // Optimized scroll handler using RAF
+    // Optimized scroll handler with immediate response
     const handleScroll = useCallback(() => {
         if (!navRef.current) return;
 
         const currentScrollY = window.scrollY;
-        const shouldBeVisible = currentScrollY < lastScrollY.current || currentScrollY < 100;
+        const shouldShow = currentScrollY < lastScrollY.current || currentScrollY < 100;
 
-        if (shouldBeVisible !== isVisible.current) {
-            isVisible.current = shouldBeVisible;
+        // Inmediata visibilidad en scroll up
+        if (shouldShow && !isVisible.current) {
+            isVisible.current = true;
             gsap.to(navRef.current, {
-                y: shouldBeVisible ? 0 : -100,
-                opacity: shouldBeVisible ? 1 : 0,
+                y: 0,
+                opacity: 1,
+                duration: 0.2,
+                ease: "power2.out"
+            });
+        } 
+        // Suave desaparición en scroll down
+        else if (!shouldShow && isVisible.current) {
+            isVisible.current = false;
+            gsap.to(navRef.current, {
+                y: -100,
+                opacity: 0,
                 duration: 0.3,
                 ease: "power2.inOut"
             });
@@ -105,87 +99,86 @@ export const FloatingNav = memo(({ navItems, className }: FloatingNavProps) => {
         lastScrollY.current = currentScrollY;
     }, []);
 
-    // Optimized scroll listener with debounce
+    // Optimized scroll listener
     useEffect(() => {
-        let rafId: number;
-        let lastRun = 0;
-        const minInterval = 16; // ~60fps
+        // Mostrar navbar inmediatamente al inicio
+        if (navRef.current) {
+            gsap.set(navRef.current, { y: 0, opacity: 1 });
+        }
 
         const onScroll = () => {
-            const now = Date.now();
-            if (now - lastRun > minInterval) {
-                lastRun = now;
-                rafId = requestAnimationFrame(handleScroll);
+            if (scrollTimeout.current) {
+                clearTimeout(scrollTimeout.current);
             }
+            
+            handleScroll();
+
+            scrollTimeout.current = setTimeout(() => {
+                handleScroll();
+            }, 150);
         };
 
         window.addEventListener('scroll', onScroll, { passive: true });
         return () => {
             window.removeEventListener('scroll', onScroll);
-            cancelAnimationFrame(rafId);
+            if (scrollTimeout.current) {
+                clearTimeout(scrollTimeout.current);
+            }
         };
     }, [handleScroll]);
 
-    // Theme toggle with animation
+    // Optimized theme toggle
     const toggleTheme = useCallback(() => {
         setTheme(theme === 'dark' ? 'light' : 'dark');
     }, [theme, setTheme]);
 
     return (
-        <motion.div
+        <div
             ref={navRef}
             className="fixed top-0 left-0 right-0 z-[5000] flex justify-center items-center"
-            initial="hidden"
-            animate="visible"
-            exit="exit"
-            variants={navVariants}
+            style={{ willChange: 'transform' }} // Optimización de rendimiento
         >
             <nav
                 className={cn(
-                    "mt-5 px-6 py-3 rounded-full flex items-center gap-2",
+                    "mt-5 px-3 sm:px-6 py-2 sm:py-3 rounded-full",
+                    "flex items-center gap-1.5 sm:gap-2",
                     "backdrop-blur-lg border border-white/10",
                     "bg-black/80 shadow-lg shadow-purple/20",
-                    "transition-all duration-300 ease-in-out",
+                    "transform-gpu", // Usar GPU para animaciones
+                    "mx-4 sm:mx-0",
                     className
                 )}
                 role="navigation"
                 aria-label="Main navigation"
             >
-                <AnimatePresence >
-                    {navItems.map((item) => (
-                        <NavItemComponent
-                            key={item.link}
-                            item={item}
-                            isActive={false}
-                            onClick={() => {}}
-                            
-                        />
-                    ))}
-                </AnimatePresence>
+                {navItems.map((item) => (
+                    <NavItemComponent
+                        key={item.link}
+                        item={item}
+                        isActive={false}
+                        onClick={() => {}}
+                    />
+                ))}
 
                 <button
                     onClick={toggleTheme}
                     className={cn(
-                        "p-2 rounded-full",
+                        "p-1.5 sm:p-2 rounded-full",
                         "hover:bg-white/10 transition-colors",
                         "text-gray-400 hover:text-white"
                     )}
                     aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`}
                 >
-                    <motion.div
-                        initial={false}
-                        animate={{ rotate: theme === 'dark' ? 0 : 180 }}
-                        transition={{ duration: 0.3 }}
-                    >
+                    <div className="transform-gpu transition-transform duration-200">
                         {theme === 'dark' ? (
                             <MdOutlineLightMode size={20} />
                         ) : (
                             <MdOutlineDarkMode size={20} />
                         )}
-                    </motion.div>
+                    </div>
                 </button>
             </nav>
-        </motion.div>
+        </div>
     );
 });
 

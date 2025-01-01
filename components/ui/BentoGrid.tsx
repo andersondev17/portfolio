@@ -79,7 +79,7 @@ export const BentoGrid =memo<BentoGridProps>( ({ className, children }) => {
             {children}
         </motion.div>
     );
-});
+})
 
 interface BentoGridItemProps {
     className?: string;
