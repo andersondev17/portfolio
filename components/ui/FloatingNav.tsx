@@ -45,7 +45,7 @@ const navVariants = {
 const NavItemComponent = memo(({ 
     item, 
     isActive, 
-    onClick 
+    onClick,
 }: { 
     item: NavItem; 
     isActive: boolean; 
@@ -55,7 +55,7 @@ const NavItemComponent = memo(({
         <motion.div
             className={cn(
                 "relative px-4 py-2 rounded-full text-sm font-medium",
-                "transition-colors hover:text-white cursor-pointer",
+                "transition-colors hover:text-white cursor-pointer","nav-hover-btn",
                 isActive ? "text-white" : "text-gray-500"
             )}
             whileHover={{ scale: 1.05 }}
@@ -134,7 +134,7 @@ export const FloatingNav = memo(({ navItems, className }: FloatingNavProps) => {
     return (
         <motion.div
             ref={navRef}
-            className="fixed top-0 left-0 right-0 z-[5000] flex justify-center"
+            className="fixed top-0 left-0 right-0 z-[5000] flex justify-center items-center"
             initial="hidden"
             animate="visible"
             exit="exit"
@@ -158,6 +158,7 @@ export const FloatingNav = memo(({ navItems, className }: FloatingNavProps) => {
                             item={item}
                             isActive={false}
                             onClick={() => {}}
+                            
                         />
                     ))}
                 </AnimatePresence>

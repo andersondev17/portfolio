@@ -1,134 +1,81 @@
 'use client';
 
 import { FloatingNav } from "@/components/ui/FloatingNav";
+import LoadingSpinner from "@/components/ui/loading/LoadingSpinner";
 import { navItems } from "@/data";
 import { cn } from "@/lib/utils";
-import { motion, useScroll, useTransform } from "framer-motion";
 import { useTheme } from "next-themes";
-import dynamic from 'next/dynamic';
-import { Suspense } from 'react';
-
-
-const LoadingPlaceholder = dynamic(() => import('@/components/ui/loading/LoadingPlaceholder'), {
-  ssr: true
-});
+import dynamic from "next/dynamic";
+import { Suspense } from "react";
 
 // Pre-load el Hero 
 const Hero = dynamic(() => import("@/components/Hero"), {
-  loading: () => (
-    <LoadingPlaceholder 
-      text="Preparing an amazing experience..." 
-      height="h-screen"
-    />
-  ),
-  ssr: false
+  loading: () => <LoadingSpinner />,
+  ssr: false,
 });
+
 // Componente de loading con skeleton
 const LoadingSection = () => (
   <div className="w-full h-96 animate-pulse bg-gradient-to-r from-gray-200 to-gray-300 dark:from-gray-800 dark:to-gray-700 rounded-xl" />
 );
 
-// Lazy load de componentes secundarios con suspense
+// Lazy load de componentes secundarios
 const Grid = dynamic(() => import("@/components/ui/Grid"), {
-  loading: LoadingSection
+  loading: LoadingSection,
 });
-
 const Experience = dynamic(() => import("@/components/Experience"));
 const Approach = dynamic(() => import("@/components/Approach"));
 const RecentProjects = dynamic(() => import("@/components/RecentProjects"));
 const Footer = dynamic(() => import("@/components/Footer"));
 
-// Wrapper para las secciones con animación
-const AnimatedSection = ({ 
-  children, 
-  id, 
-  delay = 0 
-}: { 
-  children: React.ReactNode; 
-  id: string;
-  delay?: number;
-}) => {
-  return (
-    <motion.section
-      id={id}
-      className="scroll-mt-20 relative"
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ 
-        opacity: 1, 
-        y: 0,
-        transition: {
-          duration: 0.5,
-          delay,
-          ease: [0.25, 0.25, 0, 1]
-        }
-      }}
-      viewport={{ once: true, margin: "-100px" }}
-    >
-      {children}
-    </motion.section>
-  );
-};
-
 export default function Home() {
   const { theme } = useTheme();
-  const { scrollYProgress } = useScroll({
-    offset: ["start start", "end end"]
-  });
-
-  // Efectos de parallax y transformación
-  const scale = useTransform(scrollYProgress, [0, 0.2], [1, 1.05]);
-  const rotateX = useTransform(scrollYProgress, [0, 0.5], [0, 15]);
-  const opacity = useTransform(scrollYProgress, [0, 0.2], [1, 0.8]);
 
   return (
     <Suspense fallback={<LoadingSection />}>
-      <main className={cn(
-        "min-h-screen relative transition-colors duration-300",
-        "bg-gradient-to-b from-background to-background/95",
-        "selection:bg-purple-500/20 selection:text-purple-500",
-      )}>
-        {/* Grid de fondo animado */}
-        <div className="absolute inset-0 bg-grid-white/[0.02] dark:bg-grid-white/[0.03]" />
-        
-        {/* Gradiente de desvanecimiento superior */}
-        <div className="absolute top-0 w-full h-32 bg-gradient-to-b from-background to-transparent" />
-
+      <main
+        className={cn(
+          "min-h-screen relative transition-colors duration-300",
+          "bg-gradient-to-b from-background to-background/95",
+          "selection:bg-purple-500/20 selection:text-purple-500",
+        )}
+      >
+        {/* Navegación flotante */}
         <FloatingNav navItems={navItems} />
-        
-        <div className="grid gap-32">
-          {/* Hero Section con parallax */}
-          <motion.div
-            style={{ scale, rotateX, opacity }}
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.2, ease: [0.25, 0.25, 0, 1] }}
-            className="relative z-10"
-          >
-            <Hero />
-          </motion.div>
 
-          {/* Contenido Principal */}
+        {/* Contenido principal */}
+        <div className="grid gap-32">
+          {/* Sección Hero */}
+          <div id="hero" className="relative z-10">
+            <Hero />
+          </div>
+
           <Suspense fallback={<LoadingSection />}>
             <div>
-              <AnimatedSection id="about">
+              {/* Sección About */}
+              <div id="about">
                 <Grid />
-              </AnimatedSection>
+              </div>
 
-              <AnimatedSection id="projects" delay={0.1}>
+              {/* Sección Projects */}
+              <div id="projects">
                 <RecentProjects />
-              </AnimatedSection>
+              </div>
 
-              <AnimatedSection id="experience" delay={0.2}>
+              {/* Sección Experience */}
+              <div id="experience">
                 <Experience />
-              </AnimatedSection>
+              </div>
 
-              <AnimatedSection id="approach" delay={0.25}>
+              {/* Sección Approach */}
+              <div id="approach">
                 <Approach />
-              </AnimatedSection>
-              <AnimatedSection id="contact" delay={0}>
-                <Footer />  
-              </AnimatedSection>
-            
+              </div>
+
+              {/* Sección Contact */}
+              <div id="contact">
+                <Footer />
+              </div>
             </div>
           </Suspense>
         </div>

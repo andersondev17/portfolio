@@ -82,6 +82,33 @@
 }
 
 @layer base {
+  @font-face {
+    font-family: "circular-web";
+    src: url("/fonts/circularweb-book.woff2") format("woff2");
+  }
+
+  @font-face {
+    font-family: "general";
+    src: url("/fonts/general.woff2") format("woff2");
+  }
+
+  @font-face {
+    font-family: "robert-medium";
+    src: url("/fonts/robert-medium.woff2") format("woff2");
+  }
+
+  @font-face {
+    font-family: "robert-regular";
+    src: url("/fonts/robert-regular.woff2") format("woff2");
+  }
+
+  @font-face {
+    font-family: "zentry";
+    src: url("/fonts/zentry-regular.woff2") format("woff2");
+  }
+}
+
+@layer base {
   * {
     @apply border-border !scroll-smooth;
   }
@@ -135,11 +162,21 @@
     contain-intrinsic-size: 0 320px;
   }
 
+  .nav-hover-btn {
+    @apply relative ms-10 font-general text-xs uppercase text-blue-50 after:absolute after:-bottom-0.5 after:left-0 after:h-[2px] after:w-full after:origin-bottom-right after:scale-x-0 after:bg-neutral-800 after:transition-transform after:duration-300 hover:after:origin-bottom-left hover:after:scale-x-100 dark:after:bg-white;
+}
+
+.nav-hover-btn::after {
+    transition-timing-function: cubic-bezier(0.65, 0.05, 0.36, 1);
+}
   .grid-item {
     transform: translateZ(0);
     backface-visibility: hidden;
     perspective: 1000px;
     contain: size layout;
+  }
+  .about-subtext {
+    @apply absolute bottom-[-80dvh] left-1/2 w-full max-w-96 -translate-x-1/2 text-center font-circular-web text-lg md:max-w-[34rem];
   }
 
   .image-wrapper {
@@ -149,12 +186,18 @@
   }
 }
 
-
+.special-font b {
+  font-family: "Zentry";
+  font-feature-settings: "ss01" on;
+}
+.animated-title {
+  @apply flex flex-col gap-1 text-7xl uppercase leading-[.8] text-white sm:px-32 md:text-[6rem];
+}
 .mask-clip-path {
   clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
 }
 .animated-word {
-  @apply  font-black opacity-0;
+  @apply  special-font font-zentry font-black opacity-0;
   transform: translate3d(10px, 51px, -60px) rotateY(60deg) rotateX(-40deg);
   transform-origin: 50% 50% -150px !important;
   will-change: opacity, transform;
@@ -163,7 +206,7 @@
 .three-body {
   --uib-size: 35px;
   --uib-speed: 0.8s;
-  --uib-color: #5d3fd3;
+  --uib-color: #5018b1;
   position: relative;
   display: inline-block;
   height: var(--uib-size);

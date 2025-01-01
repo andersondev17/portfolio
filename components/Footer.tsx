@@ -8,18 +8,18 @@ import TextGenerateEffect from "./ui/text-generate-effect";
 
 const Footer = () => {
     const handleDownloadCV = () => {
-        const cvLink = "https://raw.githubusercontent.com/TheGodFatherpte/portfolio/master/AndersonLopezCV.pdf";
+        const cvLink = "https://raw.githubusercontent.com/TheGodFatherpte/portfolio/master/AndersonLopezCVd.pdf";
         window.open(cvLink, "_blank");
     };
 
     return (
-        <footer className="relative pt-32 pb-10 overflow-hidden" id="contact">
+        <footer className="relative pt-32 pb-10 overflow-hidden bg-[#8A2BE2]" id="contact">
             {/* Animated background elements */}
             <div className="absolute inset-0 w-full h-full">
                 <div className="absolute inset-0 bg-gradient-to-b from-transparent via-purple/5 to-transparent dark:via-purple/10" />
                 <Spotlight
                     className="-top-40 left-0 translate-x-[40%]"
-                    fill="purple"
+                    fill="orange"
                 />
                 <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(203,172,249,0.15),transparent)]" />
                 <div className="absolute inset-0 bg-grid-black/[0.02] dark:bg-grid-white/[0.02]" />
@@ -41,27 +41,27 @@ const Footer = () => {
                             className="text-center text-4xl font-bold sm:text-5xl lg:text-6xl"
                     />
 
-                    <p className="text-gray-600 dark:text-white-200 md:mt-8 mt-6 max-w-xl mx-auto font-medium">
-                        Reach out to me today and let's discuss how I can help you achieve your
-                        goals with innovative solutions.
+                    <p className="text-gray-600 font-robert-regular dark:text-white-200 md:mt-8 mt-6 max-w-xl mx-auto font-medium">
+                        Let's discuss 
                     </p>
 
                     <div className="flex flex-col md:flex-row items-center justify-center gap-4 mt-10">
                         <a href="mailto:anderson.dev17@gmail.com">
                             <MagicButton
+                                id="contact-me"
                                 title="Let's get in touch"
-                                icon={<FaLocationArrow />}
-                                position="right"
-                                otherclasses="hover:scale-105 transition-transform"
+                                rightIcon={<FaLocationArrow />}
+                                containerClass="bg-white dark:bg-black text-black dark:text-white hover:scale-105 transition-transform"
                             />
                         </a>
 
                         <MagicButton
+                            id="download-cv"
                             title="Download CV"
-                            icon={<FaFileDownload />}
-                            position="right"
+                            rightIcon={<FaFileDownload />}
+                            
                             handleclick={handleDownloadCV}
-                            otherclasses="!bg-[#161A31] hover:scale-105 transition-transform"
+                            containerClass="bg-black dark:bg-white text-white dark:text-black   hover:scale-105 transition-transform"
                         />
                     </div>
                 </motion.div>

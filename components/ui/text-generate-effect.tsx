@@ -5,10 +5,8 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useEffect, useRef } from "react";
 
-// Register GSAP plugin
-if (typeof window !== 'undefined') {
-  gsap.registerPlugin(ScrollTrigger);
-}
+
+    gsap.registerPlugin(ScrollTrigger);
 
 interface TextGenerateEffectProps {
     words: string;
@@ -43,10 +41,11 @@ const TextGenerateEffect = ({ words, className }: TextGenerateEffectProps) => {
 
         return () => ctx.revert();
     }, []);
+    const wordsArray = words.split(" ");
 
     return (
-        <div 
-            ref={containerRef} 
+        <div
+            ref={containerRef}
             className={cn("font-bold", className)}
             aria-label={words}
         >
@@ -56,10 +55,11 @@ const TextGenerateEffect = ({ words, className }: TextGenerateEffectProps) => {
                         <span
                             key={idx}
                             className={cn(
-                                "animated-word inline-block px-[0.1em] opacity-0",
-                                idx > 3 ? 'text-purple' : 'dark:text-white text-black'
+                                "animated-word",
+                                idx > 1 && idx < 4 ? 'text-[#FF8E53]' : 'dark:text-white text-black',
+                               
                             )}
-                           
+
                         >
                             {word}{" "}
                         </span>
@@ -69,20 +69,5 @@ const TextGenerateEffect = ({ words, className }: TextGenerateEffectProps) => {
         </div>
     );
 };
-
-// Add critical styles
-const styles = `
-    .animated-word {
-        backface-visibility: hidden;
-        transform-style: preserve-3d;
-        will-change: transform, opacity;
-    }
-`;
-
-if (typeof document !== 'undefined') {
-    const style = document.createElement('style');
-    style.textContent = styles;
-    document.head.appendChild(style);
-}
 
 export default TextGenerateEffect;

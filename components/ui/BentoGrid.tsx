@@ -5,21 +5,21 @@ import animationData from "@/data/confetti.json";
 import { cn } from "@/lib/utils";
 import { motion, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
-import React, { useRef, useState } from "react";
+import React, { memo, useRef, useState } from "react";
 import { FaCode, FaGlobe } from 'react-icons/fa';
 import { IoCopyOutline } from "react-icons/io5";
 
 import dynamic from "next/dynamic";
 import { GlobeDemo } from "./GridGlobe";
-import LoadingPlaceholder from "./loading/LoadingPlaceholder";
 import MagicButton from "./MagicButton";
+import LoadingSpinner from "./loading/LoadingSpinner";
 
 
 // Actualizar el import en tu GlobeDemo:
 // Importación dinámica de Lottie
 const Lottie = dynamic(() => import('react-lottie'), {
     ssr: false,
-    loading: () => <LoadingPlaceholder />
+    loading: () => <LoadingSpinner />
 });
 
 // Animaciones refinadas
@@ -49,7 +49,7 @@ interface BentoGridProps {
 }
 
 // BentoGrid.tsx
-export const BentoGrid: React.FC<BentoGridProps> = ({ className, children }) => {
+export const BentoGrid =memo<BentoGridProps>( ({ className, children }) => {
     const ref = useRef<HTMLDivElement>(null);
     const { scrollYProgress } = useScroll({
         target: ref,
@@ -79,7 +79,7 @@ export const BentoGrid: React.FC<BentoGridProps> = ({ className, children }) => 
             {children}
         </motion.div>
     );
-};
+});
 
 interface BentoGridItemProps {
     className?: string;
@@ -94,7 +94,7 @@ interface BentoGridItemProps {
     spareImg?: string;
 }
 
-export const BentoGridItem: React.FC<BentoGridItemProps> = ({
+export const BentoGridItem = memo<BentoGridItemProps>( ({
     className,
     title,
     description,
@@ -202,7 +202,7 @@ export const BentoGridItem: React.FC<BentoGridItemProps> = ({
             </Card>
         </motion.div>
     );
-};
+});
 
 // Componentes auxiliares mejorados...
 const TechStack = () => {
@@ -256,11 +256,11 @@ const EmailCopy = ({ copied, onCopy }: { copied: boolean; onCopy: () => void }) 
             </motion.div>
         )}
         <MagicButton
+            id="copy-email"
             title={copied ? "¡Email copiado!" : "Copiar email"}
-            icon={<IoCopyOutline />}
-            position="left"
+            rightIcon={<IoCopyOutline />}
             handleclick={onCopy}
-            otherclasses={cn(
+            containerClass={cn(
                 "w-full",
                 "bg-muted/80 hover:bg-muted",
                 "text-foreground/90 hover:text-foreground",

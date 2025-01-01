@@ -26,6 +26,13 @@ const config = {
 			}
 		},
 		extend: {
+			fontFamily: {
+				zentry: ['Zentry', 'sans-serif'],
+				general: ['General', 'sans-serif'],
+				'circular-web': ['circular-web', 'sans-serif'],
+				'robert-regular': ['robert-regular', 'sans-serif'],
+				'robert-medium': ['robert-medium', 'sans-serif'],
+			},
 			colors: {
 				black: {
 					'100': '#000319',
