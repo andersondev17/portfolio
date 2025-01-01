@@ -4,6 +4,7 @@ import { FaFileDownload, FaLocationArrow } from "react-icons/fa";
 import DynamicProfileAvatar from "./ProfileAvatar";
 import MagicButton from "./ui/MagicButton";
 import { Spotlight } from "./ui/Spotlight";
+import TextGenerateEffect from "./ui/text-generate-effect";
 
 const Footer = () => {
     const handleDownloadCV = () => {
@@ -34,10 +35,11 @@ const Footer = () => {
                     transition={{ duration: 0.6 }}
                 >
                     <DynamicProfileAvatar />
-                    <h1 className="heading lg:max-w-[45vw] mx-auto bg-gradient-to-b from-gray-900 to-gray-600 dark:from-white dark:to-white-100 bg-clip-text text-transparent">
-                        Ready to take <span className="text-purple">your</span> digital presence
-                        <span className="block mt-2">to the next level?</span>
-                    </h1>
+                    <TextGenerateEffect
+                        words="Ready to take your digital presence
+                            to the next level?"
+                            className="text-center text-4xl font-bold sm:text-5xl lg:text-6xl"
+                    />
 
                     <p className="text-gray-600 dark:text-white-200 md:mt-8 mt-6 max-w-xl mx-auto font-medium">
                         Reach out to me today and let's discuss how I can help you achieve your

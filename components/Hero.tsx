@@ -1,98 +1,168 @@
 "use client";
-import dynamic from 'next/dynamic';
-import { memo } from 'react';
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import dynamic from "next/dynamic";
+import Link from "next/link";
+import { memo, useCallback, useEffect, useRef, useState } from "react";
 import { FaBriefcase, FaLocationArrow } from "react-icons/fa";
-import MagicButton from './ui/MagicButton';
-import TextGenerateEffect from './ui/text-generate-effect';
 
+// Importaciones dinámicas para optimizar el bundle inicial
+const MagicButton = dynamic(() => import('./ui/MagicButton'), {
+    ssr: false,
+    loading: () => <div className="h-12 w-40 animate-pulse bg-gray-200" />
+});
 
-const Spotlight = dynamic(() => {
-    return import('./ui/Spotlight').then((module) => module.Spotlight);
-}, { ssr: false });
+const TextGenerateEffect = dynamic(() => import('./ui/text-generate-effect'), {
+    ssr: false
+});
 
-// Priorizar texto principal con preload
-const MainContent = memo(() => (
-    <div className="space-y-4">
-        <TextGenerateEffect
-            words="Crafting Scalable Solutions For Seamless User Experiences"
-            className="text-center text-3xl md:text-4xl lg:text-5xl font-bold"
-            priority={true} // Mantener como prioridad
-            duration={0.2} // Reducir la duración
-            filter={false} // Deshabilitar efectos complejos
-        />
-        <p className="text-lg text-center max-w-2xl mx-auto">
-            I'm Anderson, a Developer based in Colombia.
-            Specializing in creating dynamic web applications. My expertise lies in transforming ideas into reality.
+const Spotlight = dynamic(() => import('./ui/Spotlight').then(mod => mod.Spotlight), {
+    ssr: false
+});
 
-        </p>
+// Registrar plugins GSAP
+if (typeof window !== 'undefined') {
+    gsap.registerPlugin(ScrollTrigger);
+}
 
-    </div>
-));
+// Constantes y configuraciones
+const ANIMATION_CONFIG = {
+    duration: 0.8,
+    ease: "power2.out"
+};
 
-MainContent.displayName = 'MainContent';
+// Componente principal optimizado con memo
+const Hero = memo(() => {
+    const heroRef = useRef<HTMLElement>(null);
+    const [isLoaded, setIsLoaded] = useState(false);
 
-const Hero = () => {
-    // Reducir el trabajo en el render initial
+    // Manejar animaciones GSAP de manera optimizada
+    useGSAP(() => {
+        if (!heroRef.current) return;
+
+        const tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: heroRef.current,
+                start: "top center",
+                end: "bottom center",
+                scrub: 1
+            }
+        });
+
+        tl.fromTo(".hero-content",
+            { y: 100, opacity: 0 },
+            { y: 0, opacity: 1, ...ANIMATION_CONFIG }
+        );
+
+        return () => tl.kill();
+    }, []);
+
+    // En el useGSAP, modifica la animación así:
+    useGSAP(() => {
+        const frame = document.querySelector("#home-frame");
+        if (!frame) return;
+
+        // Configuración inicial del clipPath
+        gsap.set(frame, {
+            clipPath: "polygon(14% 0, 72% 0, 88% 90%, 0 95%)",
+            borderRadius: "0% 0% 40% 10%",
+        });
+
+        // Animación desde el estado inicial
+        gsap.from(frame, {
+            clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
+            borderRadius: "0% 0% 0% 0%",
+            ease: "power1.inOut",
+            scrollTrigger: {
+                trigger: frame,
+                start: "top top",
+                end: "bottom center",
+                scrub: 1,
+
+            },
+        });
+    }, []);
+    // Optimizar renders con useCallback
+    const handleWorkClick = useCallback(() => {
+        const element = document.getElementById('projects');
+        element?.scrollIntoView({ behavior: 'smooth' });
+    }, []);
+
+    useEffect(() => {
+        setIsLoaded(true);
+    }, []);
 
     return (
-        <section className="relative min-h-screen pb-20 pt-40">
-            {/* Optimizar Spotlights */}
-            <div className="absolute inset-0 overflow-hidden">
-                <Spotlight
-                    className="-top-40 -left-10 md:-left-32 md:-top-20 h-screen opacity-40"
-                    fill="purple"
-                />
-                <Spotlight
-                    className="-top-10 -left-full h-[80vh] w-[50vw] opacity-40"
-                    fill="purple"
-                />
-                <Spotlight
-                    className="-top-28 -left-80 h-[80vh] w-[50vw] opacity-40"
-                    fill="blue"
-                />
+        <section
+            ref={heroRef}
+            className="relative min-h-screen w-full overflow-hidden"
+            aria-label="Introduction Section"
+        >
+            {/* Background Effects */}
+            <div  id="home-frame" className="absolute inset-0 z-0">
+                <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/10 dark:to-white/5" />
+                {isLoaded && (
+                    <>
+                        <Spotlight
+                            className="-top-40 -left-10 md:-left-32 md:-top-20 h-screen opacity-30"
+                            fill="purple"
+                        />
+                        <Spotlight
+                            className="-top-28 -left-80 h-[80vh] w-[50vw] opacity-30"
+                            fill="blue"
+                        />
+                    </>
+                )}
             </div>
 
-            <div className="relative z-10 container mx-auto px-4">
-                <div className="max-w-4xl mx-auto text-center space-y-8">
-                    {/* Metadata y SEO */}
-                    <h1 className="sr-only">Anderson Lopez - Software Developer Portfolio</h1>
+            {/* Main Content */}
+            <div
+                id="home-frame"
+                className="relative z-10 h-dvh overflow-hidden rounded-lg mx-auto max-w-7xl px-4 pt-20 sm:px-6 lg:px-8">
+                <div className="hero-content flex flex-col items-center justify-center space-y-8 text-center">
+                    {/* SEO Optimized Headings */}
+                    <h1 className="sr-only">Anderson Lopez - Frontend Developer Portfolio</h1>
 
-                    {/* Contenido crítico priorizado */}
-                    <div className="flex flex-col items-center gap-4">
-                        <span className="text-sm font-medium tracking-wider text-muted-foreground">
-                            SOFTWARE DEVELOPER
+                    <div className="space-y-4">
+                        <span className="inline-block text-sm font-medium tracking-wider text-purple-500 dark:text-purple-400">
+                            FRONTEND DEVELOPER
                         </span>
+
+                        <TextGenerateEffect
+                            words="Crafting Scalable Solutions For Seamless User Experiences"
+                            className="text-center text-4xl font-bold sm:text-5xl lg:text-6xl"
+                        />
+
+                        <p className="mx-auto max-w-2xl text-lg text-gray-600 dark:text-gray-300">
+                            Transforming modern concepts into intuitive digital experiences with cutting-edge technology.
+                        </p>
                     </div>
 
-                    {/* Contenido principal */}
-                    <MainContent />
-
-                    {/* Botones de acción */}
-                    <div
-                        className="flex flex-row sm:flex-row justify-center gap-4 "
-                    >
-                        <a href="#projects">
+                    {/* Call to Action Buttons */}
+                    <div className="flex flex-col gap-4 sm:flex-row sm:gap-6">
+                        <MagicButton
+                            title="View My Work"
+                            icon={<FaLocationArrow />}
+                            position="right"
+                            handleclick={handleWorkClick}
+                            otherclasses="bg-gradient-to-r from-purple-600 to-blue-600 text-white hover:from-purple-900 hover:to-blue-700"
+                        />
+                        <Link href="#contact" >
                             <MagicButton
-                                title="View My Work"
-                                icon={<FaLocationArrow />}
-                                position="right"
-                                otherclasses="bg-gradient-to-r from-gray-900 to-black dark:from-white dark:to-gray-200 dark:text-black text-white"
-                            />
-                        </a>
-
-                        <a href="#contact">
-                            <MagicButton
-                                title="Let's Talk"
+                                title="Let's Connect"
                                 icon={<FaBriefcase />}
                                 position="right"
-                                otherclasses="bg-gradient purple-600 text-white hover:purple-700"
+                                otherclasses="bg-black dark:bg-white dark:text-black text-white"
                             />
-                        </a>
+                        </Link>
                     </div>
                 </div>
             </div>
         </section>
     );
-};
+});
 
-export default memo(Hero);
+Hero.displayName = 'Hero';
+
+export default Hero;
