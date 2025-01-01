@@ -8,7 +8,7 @@ import TextGenerateEffect from "./ui/text-generate-effect";
 
 const Footer = () => {
     const handleDownloadCV = () => {
-        const cvLink = "https://raw.githubusercontent.com/TheGodFatherpte/portfolio/master/AndersonLopezCVd.pdf";
+        const cvLink = "https://raw.githubusercontent.com/TheGodFatherpte/portfolio/master/AndersonLopezCV.pdf";
         window.open(cvLink, "_blank");
     };
 
