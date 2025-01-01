@@ -27,37 +27,27 @@ interface FloatingNavProps {
 const NavItemComponent = memo(({ 
     item, 
     isActive,
-    onClick 
+    onClick,
 }: { 
     item: NavItem; 
-    isActive: boolean;
-    onClick: () => void;
-}) => {
-    const itemRef = useRef<HTMLDivElement>(null);
+    isActive: boolean; 
+    onClick: () => void; 
+}) => (
+    <Link href={item.link} onClick={onClick} scroll={false}>
+        <div
+            className={cn(
+                "relative px-2.5 sm:px-4 py-1.5 sm:py-2 rounded-full text-sm font-medium",
+                "transform transition-transform hover:scale-105",
+                "hover:text-white cursor-pointer",
+                isActive ? "text-white bg-white/10" : "text-gray-500",
+                "nav-hover-btn",
+            )}
+        >
+            {item.name}
+        </div>
+    </Link>
+));
 
-    // Lightweight hover effect using CSS transforms for better performance
-    return (
-        <Link href={item.link} onClick={onClick} scroll={false}>
-            <div
-                ref={itemRef}
-                className={cn(
-                    "relative px-2.5 sm:px-4 py-1.5 sm:py-2 rounded-full text-sm font-medium",
-                    "transform transition-transform hover:scale-105",
-                    "hover:text-white cursor-pointer",
-                    isActive ? "text-white" : "text-gray-500"
-                )}
-            >
-                {item.name}
-                {isActive && (
-                    <div 
-                        className="absolute inset-0 rounded-full bg-white/10"
-                        data-active="true"
-                    />
-                )}
-            </div>
-        </Link>
-    );
-});
 
 NavItemComponent.displayName = 'NavItemComponent';
 
@@ -65,78 +55,85 @@ export const FloatingNav = memo(({ navItems, className }: FloatingNavProps) => {
     const navRef = useRef<HTMLDivElement>(null);
     const { theme, setTheme } = useTheme();
     const lastScrollY = useRef(0);
-    const scrollTimeout = useRef<NodeJS.Timeout>();
+    const ticking = useRef(false);
     const isVisible = useRef(true);
 
-    // Optimized scroll handler with immediate response
+    // Optimizado para mejor UX y rendimiento
     const handleScroll = useCallback(() => {
-        if (!navRef.current) return;
+        if (!navRef.current || ticking.current) return;
 
-        const currentScrollY = window.scrollY;
-        const shouldShow = currentScrollY < lastScrollY.current || currentScrollY < 100;
+        ticking.current = true;
+        requestAnimationFrame(() => {
+            const currentScrollY = window.scrollY;
+            
+            // Solo ocultar en scroll down significativo
+            if (currentScrollY > lastScrollY.current + 50 && currentScrollY > 100) {
+                if (isVisible.current) {
+                    isVisible.current = false;
+                    gsap.to(navRef.current, {
+                        y: -100,
+                        opacity: 0,
+                        duration: 0.3,
+                        ease: "power2.inOut"
+                    });
+                }
+            } 
+            // Mostrar en scroll up o cuando está cerca del top
+            else if (currentScrollY < lastScrollY.current || currentScrollY < 100) {
+                if (!isVisible.current) {
+                    isVisible.current = true;
+                    gsap.to(navRef.current, {
+                        y: 0,
+                        opacity: 1,
+                        duration: 0.2,
+                        ease: "power2.out"
+                    });
+                }
+            }
 
-        // Inmediata visibilidad en scroll up
-        if (shouldShow && !isVisible.current) {
-            isVisible.current = true;
-            gsap.to(navRef.current, {
-                y: 0,
-                opacity: 1,
-                duration: 0.2,
-                ease: "power2.out"
-            });
-        } 
-        // Suave desaparición en scroll down
-        else if (!shouldShow && isVisible.current) {
-            isVisible.current = false;
-            gsap.to(navRef.current, {
-                y: -100,
-                opacity: 0,
-                duration: 0.3,
-                ease: "power2.inOut"
-            });
-        }
-
-        lastScrollY.current = currentScrollY;
+            lastScrollY.current = currentScrollY;
+            ticking.current = false;
+        });
     }, []);
 
-    // Optimized scroll listener
     useEffect(() => {
-        // Mostrar navbar inmediatamente al inicio
+        // Configuración inicial
         if (navRef.current) {
-            gsap.set(navRef.current, { y: 0, opacity: 1 });
+            gsap.set(navRef.current, { 
+                y: 0, 
+                opacity: 1,
+                force3D: true // Mejora rendimiento
+            });
         }
 
-        const onScroll = () => {
-            if (scrollTimeout.current) {
-                clearTimeout(scrollTimeout.current);
-            }
-            
-            handleScroll();
-
-            scrollTimeout.current = setTimeout(() => {
+        // Event listener optimizado
+        const optimizedScroll = () => {
+            if (!ticking.current) {
                 handleScroll();
-            }, 150);
+            }
         };
 
-        window.addEventListener('scroll', onScroll, { passive: true });
+        window.addEventListener('scroll', optimizedScroll, { passive: true });
+        
         return () => {
-            window.removeEventListener('scroll', onScroll);
-            if (scrollTimeout.current) {
-                clearTimeout(scrollTimeout.current);
-            }
+            window.removeEventListener('scroll', optimizedScroll);
         };
     }, [handleScroll]);
 
-    // Optimized theme toggle
-    const toggleTheme = useCallback(() => {
-        setTheme(theme === 'dark' ? 'light' : 'dark');
-    }, [theme, setTheme]);
-
+    // Resto del código del navbar
     return (
         <div
             ref={navRef}
-            className="fixed top-0 left-0 right-0 z-[5000] flex justify-center items-center"
-            style={{ willChange: 'transform' }} // Optimización de rendimiento
+            className={cn(
+                "fixed top-0 left-0 right-0 z-[5000]",
+                "flex justify-center items-center",
+                "transform-gpu", // Optimización de rendimiento
+                "will-change-transform"
+            )}
+            style={{ 
+                perspective: 1000,
+                backfaceVisibility: 'hidden'
+            }}
         >
             <nav
                 className={cn(
@@ -144,28 +141,34 @@ export const FloatingNav = memo(({ navItems, className }: FloatingNavProps) => {
                     "flex items-center gap-1.5 sm:gap-2",
                     "backdrop-blur-lg border border-white/10",
                     "bg-black/80 shadow-lg shadow-purple/20",
-                    "transform-gpu", // Usar GPU para animaciones
+                    "transform-gpu",
+                    "transition-transform duration-200",
                     "mx-4 sm:mx-0",
+                    "touch-manipulation", // Mejora la respuesta táctil
                     className
                 )}
                 role="navigation"
                 aria-label="Main navigation"
             >
+                {/* NavItems con feedback táctil mejorado */}
                 {navItems.map((item) => (
                     <NavItemComponent
                         key={item.link}
                         item={item}
                         isActive={false}
                         onClick={() => {}}
+                        
                     />
                 ))}
 
                 <button
-                    onClick={toggleTheme}
+                    onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
                     className={cn(
                         "p-1.5 sm:p-2 rounded-full",
-                        "hover:bg-white/10 transition-colors",
-                        "text-gray-400 hover:text-white"
+                        "hover:bg-white/10 active:bg-white/20",
+                        "transition-colors duration-150",
+                        "text-gray-400 hover:text-white",
+                        "touch-manipulation"
                     )}
                     aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`}
                 >
