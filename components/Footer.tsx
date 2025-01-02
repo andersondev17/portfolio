@@ -13,7 +13,9 @@ const Footer = () => {
     };
 
     return (
-        <footer className="relative pt-32 pb-10 overflow-hidden bg-[#8A2BE2]" id="contact">
+        <footer className="relative z-10 h-dvh overflow-hidden rounded-lg mx-auto w-screen px-4 pt-20 sm:px-6 lg:px-8  absolute inset-0 bg-gradient-to-br from-[#8A2BE2] via-[#9945FF] to-[#8A2BE2] 
+dark:from-[#2D1B69] dark:via-[#1F1347] dark:to-[#150D30]
+transition-colors duration-700" id="contact">
             {/* Animated background elements */}
             <div className="absolute inset-0 w-full h-full">
                 <div className="absolute inset-0 bg-gradient-to-b from-transparent via-purple/5 to-transparent dark:via-purple/10" />
@@ -38,11 +40,11 @@ const Footer = () => {
                     <TextGenerateEffect
                         words="Ready to take your digital presence
                             to the next level?"
-                            className="text-center text-4xl font-bold sm:text-5xl lg:text-6xl"
+                        className="text-center text-4xl font-bold sm:text-5xl lg:text-6xl"
                     />
 
-                    <p className="text-gray-600 font-robert-regular dark:text-white-200 md:mt-8 mt-6 max-w-xl mx-auto font-medium">
-                        Let's discuss 
+                    <p className="text-white font-robert-regular dark:text-white-200 md:mt-8 mt-6 max-w-xl mx-auto font-medium">
+                        Let's discuss
                     </p>
 
                     <div className="flex flex-col md:flex-row items-center justify-center gap-4 mt-10">
@@ -59,7 +61,7 @@ const Footer = () => {
                             id="download-cv"
                             title="Download CV"
                             rightIcon={<FaFileDownload />}
-                            
+
                             handleclick={handleDownloadCV}
                             containerClass="bg-black dark:bg-white text-white dark:text-black   hover:scale-105 transition-transform"
                         />

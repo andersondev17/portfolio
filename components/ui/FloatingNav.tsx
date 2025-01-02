@@ -4,8 +4,7 @@ import { cn } from '@/lib/utils';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useTheme } from 'next-themes';
-import Link from 'next/link';
-import { memo, useCallback, useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { MdOutlineDarkMode, MdOutlineLightMode } from 'react-icons/md';
 
 // Register GSAP
@@ -22,43 +21,76 @@ interface FloatingNavProps {
     navItems: NavItem[];
     className?: string;
 }
-
-// Optimized NavItem component
-const NavItemComponent = memo(({ 
-    item, 
-    isActive,
-    onClick,
-}: { 
+const NavItem = ({ item, isActive, onClick }: { 
     item: NavItem; 
     isActive: boolean; 
-    onClick: () => void; 
+    onClick: (e: React.MouseEvent<HTMLAnchorElement>) => void; 
 }) => (
-    <Link href={item.link} onClick={onClick} scroll={false}>
-        <div
-            className={cn(
-                "relative px-2.5 sm:px-4 py-1.5 sm:py-2 rounded-full text-sm font-medium",
-                "transform transition-transform hover:scale-105",
-                "hover:text-white cursor-pointer",
-                isActive ? "text-white bg-white/10" : "text-gray-500",
-                "nav-hover-btn",
-            )}
-        >
-            {item.name}
-        </div>
-    </Link>
-));
+    <a
+        href={item.link}
+        onClick={onClick}
+        className={cn(
+            // Base styles
+            "relative px-2 sm:px-3 py-1.5 text-xs font-medium uppercase",
+            "transition-all duration-200 ease-out",
+            // Responsive margins
+            "ms-2 sm:ms-4 first:ms-0",
+            // Colors and hover states
+            isActive ? "text-white" : "text-gray-400 hover:text-white",
+            // Hover effect container
+            "group hover:bg-transparent",
+            // Base positioning
+            "flex items-center justify-center",
+            // Touch handling
+            "touch-manipulation",
+            // Custom underline effect
+            "after:absolute after:-bottom-0.5 after:left-0",
+            "after:h-[2px] after:w-full",
+            "after:origin-bottom-right after:scale-x-0",
+            "after:transition-transform after:duration-300",
+            "after:ease-[cubic-bezier(0.65,0.05,0.36,1)]",
 
+            // Dark mode handling
+            "after:bg-white",
+            // Hover animations
+            "hover:after:origin-bottom-left hover:after:scale-x-100",
+        )}
+        aria-current={isActive ? 'page' : undefined}
+    >
+        {item.name}
+    </a>
+);
 
-NavItemComponent.displayName = 'NavItemComponent';
-
-export const FloatingNav = memo(({ navItems, className }: FloatingNavProps) => {
+export const FloatingNav = ({ navItems, className }: FloatingNavProps) => {
     const navRef = useRef<HTMLDivElement>(null);
     const { theme, setTheme } = useTheme();
+    const [activeSection, setActiveSection] = useState<string>("");
     const lastScrollY = useRef(0);
     const ticking = useRef(false);
     const isVisible = useRef(true);
 
-    // Optimizado para mejor UX y rendimiento
+    // Optimized scroll handler with IntersectionObserver
+    useEffect(() => {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    setActiveSection(entry.target.id);
+                }
+            });
+        }, {
+            rootMargin: '-50% 0px -50% 0px'
+        });
+
+        // Observe all sections
+        navItems.forEach(item => {
+            const targetId = item.link.replace('#', '');
+            const element = document.getElementById(targetId);
+            if (element) observer.observe(element);
+        });
+
+        return () => observer.disconnect();
+    }, [navItems]);
+
     const handleScroll = useCallback(() => {
         if (!navRef.current || ticking.current) return;
 
@@ -66,7 +98,6 @@ export const FloatingNav = memo(({ navItems, className }: FloatingNavProps) => {
         requestAnimationFrame(() => {
             const currentScrollY = window.scrollY;
             
-            // Solo ocultar en scroll down significativo
             if (currentScrollY > lastScrollY.current + 50 && currentScrollY > 100) {
                 if (isVisible.current) {
                     isVisible.current = false;
@@ -77,9 +108,7 @@ export const FloatingNav = memo(({ navItems, className }: FloatingNavProps) => {
                         ease: "power2.inOut"
                     });
                 }
-            } 
-            // Mostrar en scroll up o cuando está cerca del top
-            else if (currentScrollY < lastScrollY.current || currentScrollY < 100) {
+            } else if (currentScrollY < lastScrollY.current - 20 || currentScrollY < 100) {
                 if (!isVisible.current) {
                     isVisible.current = true;
                     gsap.to(navRef.current, {
@@ -97,94 +126,84 @@ export const FloatingNav = memo(({ navItems, className }: FloatingNavProps) => {
     }, []);
 
     useEffect(() => {
-        // Configuración inicial
         if (navRef.current) {
             gsap.set(navRef.current, { 
                 y: 0, 
                 opacity: 1,
-                force3D: true // Mejora rendimiento
+                force3D: true
             });
         }
 
-        // Event listener optimizado
-        const optimizedScroll = () => {
-            if (!ticking.current) {
-                handleScroll();
-            }
-        };
-
-        window.addEventListener('scroll', optimizedScroll, { passive: true });
+        window.addEventListener('scroll', handleScroll, { passive: true });
         
-        return () => {
-            window.removeEventListener('scroll', optimizedScroll);
-        };
+        return () => window.removeEventListener('scroll', handleScroll);
     }, [handleScroll]);
 
-    // Resto del código del navbar
+    const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, link: string) => {
+        e.preventDefault();
+        const targetId = link.replace('#', '');
+        const element = document.getElementById(targetId);
+        
+        if (element) {
+            element.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+            setActiveSection(targetId);
+        }
+    };
+
     return (
         <div
             ref={navRef}
             className={cn(
-                "fixed top-0 left-0 right-0 z-[5000]",
-                "flex justify-center items-center",
-                "transform-gpu", // Optimización de rendimiento
-                "will-change-transform"
+                "fixed top-4 left-1/2 transform -translate-x-1/2 z-[5000]",
+                "w-[calc(100%-1rem)] sm:w-auto min-w-[320px] max-w-md",
+                "will-change-transform",
+                className
             )}
-            style={{ 
-                perspective: 1000,
-                backfaceVisibility: 'hidden'
-            }}
         >
             <nav
                 className={cn(
-                    "mt-5 px-3 sm:px-6 py-2 sm:py-3 rounded-full",
-                    "flex items-center gap-1.5 sm:gap-2",
-                    "backdrop-blur-lg border border-white/10",
-                    "bg-black/80 shadow-lg shadow-purple/20",
-                    "transform-gpu",
-                    "transition-transform duration-200",
-                    "mx-4 sm:mx-0",
-                    "touch-manipulation", // Mejora la respuesta táctil
-                    className
+                    "w-full rounded-full",
+                    "px-2 py-2 sm:px-4 sm:py-3",
+                    "flex items-center justify-between",
+                    "backdrop-blur-lg bg-black/80",
+                    "border border-white/10 shadow-lg",
                 )}
                 role="navigation"
                 aria-label="Main navigation"
             >
-                {/* NavItems con feedback táctil mejorado */}
-                {navItems.map((item) => (
-                    <NavItemComponent
-                        key={item.link}
-                        item={item}
-                        isActive={false}
-                        onClick={() => {}}
-                        
-                    />
-                ))}
+                <div className="flex items-center">
+                    {navItems.map((item) => (
+                        <NavItem
+                            key={item.link}
+                            item={item}
+                            isActive={activeSection === item.link.replace('#', '')}
+                            onClick={(e) => handleNavClick(e, item.link)}
+                        />
+                    ))}
+                </div>
 
                 <button
                     onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
                     className={cn(
-                        "p-1.5 sm:p-2 rounded-full",
+                        "p-2 rounded-full ml-2",
                         "hover:bg-white/10 active:bg-white/20",
-                        "transition-colors duration-150",
-                        "text-gray-400 hover:text-white",
-                        "touch-manipulation"
+                        "transition-colors",
+                        "text-gray-400 hover:text-white"
                     )}
                     aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`}
                 >
-                    <div className="transform-gpu transition-transform duration-200">
-                        {theme === 'dark' ? (
-                            <MdOutlineLightMode size={20} />
-                        ) : (
-                            <MdOutlineDarkMode size={20} />
-                        )}
-                    </div>
+                    {theme === 'dark' ? (
+                        <MdOutlineLightMode className="w-4 h-4 sm:w-5 sm:h-5" />
+                    ) : (
+                        <MdOutlineDarkMode className="w-4 h-4 sm:w-5 sm:h-5" />
+                    )}
                 </button>
             </nav>
         </div>
     );
-});
-
-FloatingNav.displayName = 'FloatingNav';
+};
 
 export default FloatingNav;

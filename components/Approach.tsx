@@ -3,16 +3,21 @@ import React, { memo, useCallback } from "react";
 
 import { CanvasRevealEffect } from "@/components/ui/Canvas-reveal-effect";
 import { AnimatePresence, motion } from "framer-motion";
+import TextGenerateEffect from "./ui/text-generate-effect";
 
 const Approach = () => {
     return (
         <section className="w-full py-20">
             <h1 className="heading">
-                My <span className="text-purple">Approach</span>
+                <TextGenerateEffect
+                    words="My Approach"
+                    className="special-font text-4xl font-bold sm:text-5xl lg:text-6xl 
+                                     text-gray-900 dark:text-white"
+                />
             </h1>
             <div className="my-20 flex flex-col lg:flex-row items-center justify-center gap-4">
                 <Card title="Planning & Strategy" icon={<AceternityIcon order="Phase 1 " />}
-                description=" We'll collaborate to map your website's goal, target audience and key functionalities. We'll discuss things like site structure, navigation, and content requirements."
+                    description=" We'll collaborate to map your website's goal, target audience and key functionalities. We'll discuss things like site structure, navigation, and content requirements."
                 >
                     <CanvasRevealEffect
                         animationSpeed={5.1}
@@ -20,7 +25,7 @@ const Approach = () => {
                     />
                 </Card>
                 <Card title="Development & Progress Update" icon={<AceternityIcon order="Phase 2" />}
-                description= "Once we agree on the plan, I cue my lofi playlist and dive into coding. From initial sketches to polished code, I keep you updated every step of the way "
+                    description="Once we agree on the plan, I cue my lofi playlist and dive into coding. From initial sketches to polished code, I keep you updated every step of the way "
                 >
                     <CanvasRevealEffect
                         animationSpeed={3}
@@ -31,12 +36,12 @@ const Approach = () => {
                         ]}
                         dotSize={2}
                     />
-                    
+
                 </Card>
                 <Card
                     title="Development & Launch "
-                    icon={<AceternityIcon order="Phase 2"/>}
-                    description= "This is where the magic happens! Based on the approved design, I'll translate everithing into functional code, bulding your website from the ground up. ">
+                    icon={<AceternityIcon order="Phase 2" />}
+                    description="This is where the magic happens! Based on the approved design, I'll translate everithing into functional code, bulding your website from the ground up. ">
                     <CanvasRevealEffect
                         animationSpeed={3}
                         containerClassName="bg-sky-600"
@@ -57,7 +62,7 @@ const Card = memo(({
     title: string;
     icon: React.ReactNode;
     children?: React.ReactNode;
-    description? :string;
+    description?: string;
 }) => {
     const [hovered, setHovered] = React.useState(false);
     const handleMouseEnter = useCallback(() => setHovered(true), []);
@@ -65,8 +70,8 @@ const Card = memo(({
 
     return (
         <div
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
             className="border border-black/[0.2] group/canvas-card flex items-center justify-center dark:border-white/[0.2]  max-w-sm w-full mx-auto p-4 lg:h[35rem] h-[30rem] relative rounded-3xl"
         >
             <Icon className="absolute h-6 w-6 -top-3 -left-3 dark:text-white text-black" />
@@ -94,12 +99,12 @@ const Card = memo(({
                     {title}
                 </h2>
                 <h2 className="text-sm dark:text-white opacity-0 text-center group-hover/canvas-card:opacity-100 relative z-10 text-black mt-4  font-bold group-hover/canvas-card:text-white group-hover/canvas-card:-translate-y-2 transition duration-200"
-                    style={{ color:"#e4ecff"}}>
+                    style={{ color: "#e4ecff" }}>
                     {description}
                 </h2>
             </div>
         </div>
-    );  
+    );
 }
 );
 

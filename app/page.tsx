@@ -20,9 +20,7 @@ const LoadingSection = () => (
 );
 
 // Lazy load de componentes secundarios
-const Grid = dynamic(() => import("@/components/ui/Grid"), {
-  loading: LoadingSection,
-});
+const Features = dynamic(() => import("@/components/Features"));
 const Experience = dynamic(() => import("@/components/Experience"));
 const Approach = dynamic(() => import("@/components/Approach"));
 const RecentProjects = dynamic(() => import("@/components/RecentProjects"));
@@ -46,16 +44,17 @@ export default function Home() {
         {/* Contenido principal */}
         <div className="grid gap-32">
           {/* Sección Hero */}
-          <div id="hero" className="relative z-10">
+          <div id="home" className="relative z-10">
             <Hero />
           </div>
 
           <Suspense fallback={<LoadingSection />}>
             <div>
               {/* Sección About */}
-              <div id="about">
-                <Grid />
-              </div>
+              {/* BentoGrid Section */}
+              <section id="about" className='min-h-screen'>
+                <Features />
+              </section>
 
               {/* Sección Projects */}
               <div id="projects">

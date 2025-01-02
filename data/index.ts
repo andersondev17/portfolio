@@ -1,78 +1,37 @@
 
 export const navItems = [
+    
     { name: "About", link: "#about" },
     { name: "Projects", link: "#projects" },
     { name: "Contact", link: "#contact" },
+
 ];
 
-export const gridItems = [
+export const featureItems = [
     {
         id: 1,
         title: "Client-Focused Development",
         description: "I prioritize strong client relationships through open communication and collaborative problem-solving.",
-        className: "lg:col-span-2 row-span-1",
-        imgClassName: "w-full h-full object-cover opacity-40",
-        titleClassName: "justify-end",
-        img: "/b1.svg",
-        spareImg: "",
-        category: "approach"
-    },
-    {
-        id: 2,
-        title: "Global Collaboration",
-        description: "Working seamlessly across time zones with a commitment to clear communication and flexible scheduling.",
-        className: "lg:row-span-2",
-        imgClassName: "",
-        titleClassName: "justify-start",
-        img: "",
-        spareImg: "",
-        category: "workflow",
-        component: "globe" // Componente especial para el globo
+        className: "border-hsla bento-tilt_1 row-span-1 md:col-span-1 md:row-span-2",
+        src: "/b1.svg",
+        isComingSoon: true
     },
     {
         id: 3,
-        title: "Technical Expertise",
-        description: "Modern tech stack focused on delivering robust and scalable solutions",
-        className: "lg:col-span-2",
-        imgClassName: "",
-        titleClassName: "justify-center",
-        component: "tech-stack",
-        technologies: {
-            frontend: ["React", "Next.js", "TypeScript", "Tailwind CSS"],
-            backend: ["Node.js", "Express", "PostgreSQL"],
-            tools: ["Git", "Docker", "AWS"]
-        }
-    },
-    {
-        id: 4,
-        title: "Innovation Focus",
-        description: "Passion for creating cutting-edge solutions with attention to detail and modern best practices.",
-        className: "lg:col-span-1 row-span-1",
-        img: "/grid.svg",
+        title: "Technical Expertise ",
+        description: "Modern tech stack focused on delivering robust and scalable solutions using React, Next.js, TypeScript, and Tailwind CSS.",
+        className: "bento-tilt_2",
+        src: "/b2.svg",
         category: "approach"
     },
     {
-        id: 5,
-        title: "Featured Project: Barber Management App",
-        description: "Revolutionizing business management for barbers with smart scheduling and client management.",
-        className: "lg:col-span-3",
-        imgClassName: "right-0 bottom-0 w-full h-64 object-cover",
-        img: "/b5.svg",
-        category: "project",
-        stats: {
-            users: "500+",
-            appointments: "10k+",
-            satisfaction: "98%"
-        }
-    },
-    {
-        id: 6,
+        id: 3,
         title: "Let's Build Something Amazing",
         description: "Ready to transform your ideas into reality? Let's collaborate!",
-        className: "lg:col-span-2",
-        component: "contact",
-        category: "cta"
-    }
+        className: "bento-tilt_2",
+        src: "/b2.svg",
+        category: "approach"
+    },
 ];
 
 export const projects = [
