@@ -1,21 +1,35 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/all";
-import { memo, useRef, useState } from "react";
+import { memo, useEffect, useRef } from "react";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const VideoShowcase: React.FC = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
 
-  const handleVideoLoad = () => {
-    setIsVideoLoaded(true);
+  // Efecto para manejar el autoplay
+  useEffect(() => {
     if (videoRef.current) {
-      videoRef.current.play().catch(console.log);
-    }
-  };
+      // Configurar opciones de reproducción
+      videoRef.current.defaultMuted = true;
+      videoRef.current.muted = true;
+      videoRef.current.playsInline = true;
+      
+      // Iniciar reproducción
+      const playVideo = async () => {
+        try {
+          await videoRef.current?.play();
+        } catch (err) {
+          console.warn("Autoplay failed:", err);
+        }
+      };
 
+      playVideo();
+    }
+  }, []);
+
+  // Animación GSAP
   useGSAP(() => {
     const clipAnimation = gsap.timeline({
       scrollTrigger: {
@@ -37,20 +51,18 @@ const VideoShowcase: React.FC = () => {
 
   return (
     <div id="video-showcase" className="min-h-screen w-screen">
-
       <div className="h-dvh w-screen" id="video-clip">
-        <div className="mask-clip-path about-image">
-        
+        <div className="mask-clip-path about-image w-[60vw] h-[60vh] rounded-3xl overflow-hidden">
           <video
             ref={videoRef}
-            onLoadedData={handleVideoLoad}
             src="/video/showCase.mp4"
-            className={`absolute left-0 top-0 size-full object-cover transition-opacity duration-500
-              ${isVideoLoaded ? 'opacity-100' : 'opacity-0'}`}
+            className="absolute left-0 top-0 size-full object-cover"
+            autoPlay
             playsInline
             muted
             loop
-            aria-label=" Video showcase"
+            preload="auto"
+            aria-label="Video showcase"
           />
         </div>
       </div>
@@ -59,3 +71,4 @@ const VideoShowcase: React.FC = () => {
 };
 
 export default memo(VideoShowcase);
+
