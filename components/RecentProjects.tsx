@@ -64,9 +64,10 @@ const RecentProjects = () => {
     return (
         <section
             ref={sectionRef}
-            className="relative min-h-screen py-20 overflow-hidden"
+            className="relative min-h-screen py-40 overflow-hidden"
             id="projects"
         >
+            
             {/* Efectos de fondo con mejor performance */}
             <div className="absolute inset-0 pointer-events-none">
                 <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background to-background/80 z-10" />
@@ -78,11 +79,16 @@ const RecentProjects = () => {
                     className="top-1/4 right-0 opacity-30"
                     fill={theme === 'dark' ? '#4F46E5' : '#818CF8'}
                 />
-                <div className="absolute inset-0 bg-[url('/noise.png')] opacity-[0.02] mix-blend-overlay" />
+                <div className="absolute inset-0  opacity-[0.02] mix-blend-overlay" />
             </div>
-
+            <div className="about-subtext h-dvh text-center pt-40">
+                    <p>I've collaborated in duties across areas from initial concept to deployment</p>
+                    <p className="text-gray-500">
+                    I constantly explore new technologies and resources to build smooth and scalable apps.
+                    </p>
+                </div>
             {/* Contenido principal */}
-            <div className="container mx-auto px-4 relative z-10">
+            <div className="container mx-auto  relative z-10">
                 {/* Encabezado */}
                 <div ref={headingRef} className="text-center space-y-8 pb-20">
                     <span className="block text-sm font-medium tracking-wider text-purple-500">
@@ -107,8 +113,8 @@ const RecentProjects = () => {
                 >
                     {projects.map((project, index) => (
                         <div
-                            key={project.id}
-                            className="project-card transform-gpu gap-4 p-20    "
+                        key={`project-${project.id}-${index}`}
+                        className="project-card transform-gpu gap-4 p-20    "
                         >
                             <PinContainer
                                 title="View Project"
@@ -153,8 +159,8 @@ const RecentProjects = () => {
                                     <div className="flex items-center">
                                         {project.iconLists.map((icon, index) => (
                                             <div
-                                                key={index}
-                                                className="border border-white/[.2] rounded-full bg-black lg:w-10 lg:h-10 w-8 h-8 flex justify-center items-center hover:-translate-y-1 transition-transform"
+                                            key={`icon-${project.id}-${index}`} // Key única para cada icono
+                                            className="border border-white/[.2] rounded-full bg-black lg:w-10 lg:h-10 w-8 h-8 flex justify-center items-center hover:-translate-y-1 transition-transform"
                                                 style={{
                                                     transform: `translateX(-${5 * index + 2}px)`,
                                                 }}

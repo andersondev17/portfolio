@@ -276,18 +276,7 @@ const Features = () => {
             id="about"
         >
             <div className="container mx-auto px-3 md:px-10">
-                <div className="px-5 py-32">
-                    <p className="features-header font-circular-web text-lg text-[#8A2BE2] dark:text-blue-50
-                               transition-colors duration-300">
-                        Into the Metagame Layer
-                    </p>
-                    <p className="features-header max-w-md font-circular-web text-lg  text-gray-400 dark:text-blue-50/50
-                               transition-colors duration-300">
-                        Immerse yourself in a rich and ever-expanding universe where a vibrant
-                        array of products converge into an interconnected overlay experience
-                        on your world.
-                    </p>
-                </div>
+                
 
                 <BentoTilt className="border-hsla relative mb-7 h-96 w-full overflow-hidden rounded-md md:h-[65vh]  bg-white/40 dark:bg-transparent
                                     border border-[#9945FF]/20 dark:border-white/20

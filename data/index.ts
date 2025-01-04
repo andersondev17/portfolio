@@ -6,11 +6,48 @@ export const navItems = [
     { name: "Contact", link: "#contact" },
 
 ];
-
+const PHASES = [
+    {
+        id: 1,
+        title: "Consistent from concept to launch",
+        order: "Phase 1",
+        description: "We'll collaborate to map your website's goal, target audience and key functionalities. We'll discuss things like site structure, navigation, and content requirements.",
+        canvasProps: {
+            animationSpeed: 5.1,
+            containerClassName: "bg-emerald-900"
+        }
+    },
+    {
+        id: 2,
+        title: "Development & Progress Update",
+        order: "Phase 2",
+        description: "Once we agree on the plan, I cue my lofi playlist and dive into coding. From initial sketches to polished code, I keep you updated every step of the way.",
+        canvasProps: {
+            animationSpeed: 3,
+            containerClassName: "bg-black",
+            colors: [
+                [236, 72, 153],
+                [232, 121, 249]
+            ],
+            dotSize: 2
+        }
+    },
+    {
+        id: 3,
+        title: "Development & Launch",
+        order: "Phase 3",
+        description: "This is where the magic happens! Based on the approved design, I'll translate everything into functional code, building your website from the ground up.",
+        canvasProps: {
+            animationSpeed: 3,
+            containerClassName: "bg-sky-600",
+            colors: [[125, 211, 252]]
+        }
+    }
+];
 export const featureItems = [
     {
         id: 1,
-        title: "Client-Focused Development",
+        title: "Consistent from concept to launch",
         description: "I prioritize strong client relationships through open communication and collaborative problem-solving.",
         className: "border-hsla bento-tilt_1 row-span-1 md:col-span-1 md:row-span-2",
         src: "/b1.svg",
@@ -19,7 +56,7 @@ export const featureItems = [
     {
         id: 3,
         title: "Technical Expertise ",
-        description: "Modern tech stack focused on delivering robust and scalable solutions using React, Next.js, TypeScript, and Tailwind CSS.",
+        description: "Modern tech stack. I love crafting and I'm not afraid of exploring creative solutions using React, Next.js, TypeScript, and Tailwind CSS.",
         className: "bento-tilt_2",
         src: "/b2.svg",
         category: "approach"
@@ -140,3 +177,4 @@ export const socialMedia = [
         link: "https://www.linkedin.com/in/andersonlopezmartinez/"
     },
 ];
+

@@ -1,7 +1,9 @@
 'use client';
 
+import About from "@/components/About";
 import { FloatingNav } from "@/components/ui/FloatingNav";
 import LoadingSpinner from "@/components/ui/loading/LoadingSpinner";
+import VideoShowcase from "@/components/ui/VideoShowcase";
 import { navItems } from "@/data";
 import { cn } from "@/lib/utils";
 import { useTheme } from "next-themes";
@@ -20,9 +22,6 @@ const LoadingSection = () => (
 );
 
 // Lazy load de componentes secundarios
-const Features = dynamic(() => import("@/components/Features"));
-const Experience = dynamic(() => import("@/components/Experience"));
-const Approach = dynamic(() => import("@/components/Approach"));
 const RecentProjects = dynamic(() => import("@/components/RecentProjects"));
 const Footer = dynamic(() => import("@/components/Footer"));
 
@@ -31,55 +30,38 @@ export default function Home() {
 
   return (
     <Suspense fallback={<LoadingSection />}>
-      <main
-        className={cn(
-          "min-h-screen relative transition-colors duration-300",
-          "bg-gradient-to-b from-background to-background/95",
-          "selection:bg-purple-500/20 selection:text-purple-500",
-        )}
-      >
-        {/* Navegación flotante */}
+      <main className={cn(
+        "min-h-screen relative transition-colors duration-300",
+        "bg-gradient-to-b from-background to-background/95",
+        "selection:bg-purple-500/20 selection:text-purple-500",
+      )}>
         <FloatingNav navItems={navItems} />
 
-        {/* Contenido principal */}
         <div className="grid gap-32">
-          {/* Sección Hero */}
           <div id="home" className="relative z-10">
             <Hero />
           </div>
 
           <Suspense fallback={<LoadingSection />}>
-            <div>
-              {/* Sección About */}
-              {/* BentoGrid Section */}
-              <section id="about" className='min-h-screen'>
-                <Features />
-              </section>
+           
+            <div id="about" className="relative min-h-screen overflow-hidden">
+              <About />
+            </div>
+            <div id="showcase" className="relative min-h-screen overflow-hidden">
+              <VideoShowcase />
+            </div>
 
-              {/* Sección Projects */}
-              <div id="projects">
-                <RecentProjects />
-              </div>
+            <div id="projects" className="">
+              <RecentProjects />
+            </div>
 
-              {/* Sección Experience */}
-              <div id="experience">
-                <Experience />
-              </div>
 
-              {/* Sección Approach */}
-              <div id="approach">
-                <Approach />
-              </div>
-
-              {/* Sección Contact */}
-              <div id="contact">
-                <Footer />
-              </div>
+            <div id="contact">
+              <Footer />
             </div>
           </Suspense>
         </div>
 
-        {/* Gradiente de desvanecimiento inferior */}
         <div className="absolute bottom-0 w-full h-32 bg-gradient-to-t from-background to-transparent" />
       </main>
     </Suspense>
