@@ -1,5 +1,5 @@
 import { socialMedia } from "@/data";
-import { motion } from "framer-motion";
+import { motion } from 'framer-motion';
 import { FaFileDownload, FaLocationArrow } from "react-icons/fa";
 import DynamicProfileAvatar from "./ProfileAvatar";
 import MagicButton from "./ui/MagicButton";
@@ -13,9 +13,11 @@ const Footer = () => {
     };
 
     return (
-        <footer className="relative z-10 h-dvh overflow-hidden rounded-lg mx-auto w-screen px-4 pt-20 sm:px-6 lg:px-8  absolute inset-0 bg-gradient-to-br from-[#8A2BE2] via-[#9945FF] to-[#8A2BE2] 
-dark:from-[#2D1B69] dark:via-[#1F1347] dark:to-[#150D30]
-transition-colors duration-700" id="contact">
+        <footer className="relative z-10 h-dvh overflow-hidden rounded-lg mx-auto w-screen px-4 pt-20 sm:px-6 lg:px-8  absolute inset-0  bg-gradient-to-br from-[#FFFFFF] via-[#F7F7F7] to-[#E8EAF6] 
+           dark:from-[#2D1B69] dark:via-[#1F1347] dark:to-[#150D30]
+           transition-colors duration-700" id="contact">
+
+
             {/* Animated background elements */}
             <div className="absolute inset-0 w-full h-full">
                 <div className="absolute inset-0 bg-gradient-to-b from-transparent via-purple/5 to-transparent dark:via-purple/10" />
@@ -28,7 +30,7 @@ transition-colors duration-700" id="contact">
             </div>
 
             {/* Main content container */}
-            <div className="relative z-10 container mx-auto px-6 max-w-6xl  ">
+            <div className="relative items-center justify-center z-10 container mx-auto px-6 max-w-6xl  ">
                 <div
                     className="text-center"
                     
@@ -40,7 +42,7 @@ transition-colors duration-700" id="contact">
                         className="text-center text-4xl font-bold sm:text-5xl lg:text-6xl"
                     />
 
-                    <p className="text-white font-robert-regular dark:text-white-200 md:mt-8 mt-6 max-w-xl mx-auto font-medium">
+                    <p className="text-black font-robert-regular dark:text-white-200 md:mt-8 mt-6 max-w-xl mx-auto font-medium">
                         Let's discuss
                     </p>
 
@@ -50,8 +52,8 @@ transition-colors duration-700" id="contact">
                                 id="contact-me"
                                 title="Let's get in touch"
                                 rightIcon={<FaLocationArrow />}
-                                containerClass="bg-white dark:bg-black text-black dark:text-white hover:scale-105 transition-transform"
-                            />
+                                containerClass="bg-[#FF8E53] dark:bg-black text-black dark:text-white 
+                                hover:scale-105 transition-all duration-300"                            />
                         </a>
 
                         <MagicButton
@@ -63,16 +65,6 @@ transition-colors duration-700" id="contact">
                             containerClass="bg-black dark:bg-white text-white dark:text-black   hover:scale-105 transition-transform"
                         />
                     </div>
-                </div>
-
-                <div
-                    className=" mt-4 flex md:flex-row flex-col justify-between items-center border-t border-gray-200/20 dark:border-gray-800/50 pt-8"
-
-                >
-                    <p className="text-gray-600 dark:text-white-200/80 font-medium">
-                        © 2024 Anderson Lopez. All rights reserved.
-                    </p>
-
                     <div className="flex items-center gap-4 mt-6 md:mt-0">
                         {socialMedia.map((info) => (
                             <motion.a
@@ -127,6 +119,18 @@ transition-colors duration-700" id="contact">
                             </motion.a>
                         ))}
                     </div>
+                </div>
+
+                <div
+                    className=" mt-4 flex md:flex-row flex-col justify-between items-center border-t border-gray-200/20 dark:border-gray-800/50 pt-8"
+
+                >
+                    
+                    <p className="text-gray-600 dark:text-white-200/80 font-medium">
+                        © 2024 Anderson Lopez. All rights reserved.
+                    </p>
+
+                    
                 </div>
             </div>
         </footer>
