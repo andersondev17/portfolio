@@ -22,7 +22,7 @@ const LoadingSection = () => (
 );
 
 // Lazy load de componentes secundarios
-const RecentProjects = dynamic(() => import("@/components/RecentProjects"));
+const RecentProjects = dynamic(() => import("@/components/recetProjects/RecentProjects"));
 const Footer = dynamic(() => import("@/components/Footer"));
 
 export default function Home() {

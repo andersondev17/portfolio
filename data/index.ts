@@ -1,6 +1,6 @@
 
 export const navItems = [
-    
+
     { name: "About", link: "#about" },
     { name: "Projects", link: "#projects" },
     { name: "Contact", link: "#contact" },
@@ -74,37 +74,109 @@ export const featureItems = [
 export const projects = [
     {
         id: 1,
-        title: "E commerce platform",
-        des: "Enjoy a seamless user experience as you select ingredients, customize toppings, and explore various bread options..",
-        img: "/p2.png",
-        iconLists: ["nodejs.svg", "/re.svg", "/tail.svg", "https://www.vectorlogo.zone/logos/mysql/mysql-icon.svg", "/laravel-2.svg"],
+        title: "E-commerce Platform",
+        role: "Lead Frontend Developer",
+        des:  "A modern e-commerce platform offering customizable product options. Designed for scalability and intuitive user interactions.",
+        img: "/img/projects/p2.png",
+        features: [
+            "Custom product configuration system",
+            "Cart synchronization with React Context API",
+            "Mobile-responsive design and lazy loading for products",
+            "Scalable architecture for product management"
+        ],
+        iconLists: [
+            "nodejs.svg",
+            "/re.svg",
+            "/tail.svg",
+            "https://www.vectorlogo.zone/logos/mysql/mysql-icon.svg",
+            "/laravel-2.svg"
+        ],
         link: "https://sanguches.com.co/",
+        github: "https://github.com/andersondev17/sanguches-master-final",
+        highlights: [
+            "40% improvement in user engagement",
+            "99% uptime since launch",
+            "5-star customer satisfaction rating"
+        ],
+        duration: "3 months"
     },
     {
         id: 2,
         title: "AMMAE",
-        des: "MERN Shopping store and product management with custom CMS with API Rest using Mongoose.",
-        img: "/p3.png",
-        iconLists: ["next.svg", "/ts.svg", "/tail.svg", "mongo-icon.svg"],
+        role: "Full Stack Developer",
+        des: "AMMAE is a MERN Stack eCommerce platform designed for advanced product management and optimized user experience, integrating a custom CMS",
+        img: "/img/projects/p3.png",
+        features: [
+            "Custom CMS for product management for Real-time inventory tracking and updates",
+            "RESTful API integration",
+            "User authentication system",
+            "Real-time inventory updates"
+        ],
+        iconLists: [
+            "next.svg",
+            "/ts.svg",
+            "/tail.svg",
+            "mongo-icon.svg"
+        ],
         link: "https://github.com/andersondev17/AMMAE",
+        github: "https://github.com/andersondev17/AMMAE",
+        highlights: [
+            "Reduced loading time by 60%",
+            "Implemented responsive design",
+            "Enhanced security features"
+        ]
     },
     {
         id: 3,
         title: "🎯 Brand Registration System",
-        des: "Brand registration management system built with Next.js 15. This application provides a complete CRUD interface for managing brand registrations with a sleek, user-friendly design.",
-        img: "/p4.png",
-        iconLists: ["next.svg", "/ts.svg", "/tail.svg"],
+        role: "Frontend Developer",
+        des: "A modern brand registration management system built with Next.js 15, providing a comprehensive CRUD interface with an emphasis on user experience and performance optimization.",
+        img: "/img/projects/p4.png",
+        features: [
+            "Intuitive brand registration workflow",
+            "Real-time validation with Zod",
+            "Advanced search and filtering",
+            "Performance optimization"
+        ],
+        iconLists: [
+            "next.svg",
+            "/ts.svg",
+            "/tail.svg"
+        ],
         link: "https://brand-registry.vercel.app/",
-
+        github: "https://github.com/andersondev17/brand-registry",
+        highlights: [
+            "95+ Lighthouse performance score",
+            "Accessible design implementation",
+            "Optimized database queries"
+        ]
     },
     {
-        id: 3,
+        id: 4,
         title: "Survey Master",
-        des: "is a single-page web application designed to get appointed with a survey.",
-        img: "/p1.png",
-        iconLists: ["nodejs.svg", "/re.svg", "/tail.svg"],
+        role: "Frontend Developer",
+        des: "A dynamic single-page web application designed for creating and managing surveys, featuring real-time updates and responsive design for optimal user experience across devices.",
+        img: "/img/projects/p1.png",
+        features: [
+            "Dynamic form generation",
+            "Real-time data visualization",
+            "Export functionality",
+            "User authentication",
+            "Response analytics"
+        ],
+        iconLists: [
+            "nodejs.svg",
+            "/re.svg",
+            "/tail.svg"
+        ],
         link: "https://spin-website-graphics-iucy-nara3wyvv-thegodfatherptes-projects.vercel.app/",
-    },
+        github: "https://github.com/andersondev17/SPIN_Website_Graphics",
+        highlights: [
+            "Increased user engagement by 35%",
+            "Reduced form completion time",
+            "Enhanced data visualization"
+        ]
+    }
 ];
 
 export const testimonials = [
