@@ -29,7 +29,7 @@ export const PinContainer = ({
 
     return (
         <motion.div
-            className="relative group/pin z-50 cursor-pointer"
+            className="relative group/pin z-50 cursor-pointer lg:pt-10 xl:pt-32 pt-10"
             onClick={() => window.open(href || "/", "_blank")}
             onMouseEnter={onMouseEnter}
             onMouseLeave={onMouseLeave}

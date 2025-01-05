@@ -28,13 +28,10 @@ transition-colors duration-700" id="contact">
             </div>
 
             {/* Main content container */}
-            <div className="relative z-10 container mx-auto px-6 max-w-6xl">
-                <motion.div
+            <div className="relative z-10 container mx-auto px-6 max-w-6xl  ">
+                <div
                     className="text-center"
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6 }}
+                    
                 >
                     <DynamicProfileAvatar />
                     <TextGenerateEffect
@@ -66,14 +63,11 @@ transition-colors duration-700" id="contact">
                             containerClass="bg-black dark:bg-white text-white dark:text-black   hover:scale-105 transition-transform"
                         />
                     </div>
-                </motion.div>
+                </div>
 
-                <motion.div
-                    className="mt-24 flex md:flex-row flex-col justify-between items-center border-t border-gray-200/20 dark:border-gray-800/50 pt-8"
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6, delay: 0.2 }}
+                <div
+                    className=" mt-4 flex md:flex-row flex-col justify-between items-center border-t border-gray-200/20 dark:border-gray-800/50 pt-8"
+
                 >
                     <p className="text-gray-600 dark:text-white-200/80 font-medium">
                         © 2024 Anderson Lopez. All rights reserved.
@@ -133,7 +127,7 @@ transition-colors duration-700" id="contact">
                             </motion.a>
                         ))}
                     </div>
-                </motion.div>
+                </div>
             </div>
         </footer>
     );

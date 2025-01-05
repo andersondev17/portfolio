@@ -135,9 +135,9 @@ const Hero = memo(({ onLoadComplete }: HeroProps) => {
             <div
                 id="home-frame"
                 className="relative z-10 h-dvh w-screen overflow-hidden rounded-lg 
-                           bg-gradient-to-br from-[#8A2BE2] via-[#9945FF] to-[#8A2BE2] 
-                           dark:from-[#2D1B69] dark:via-[#1F1347] dark:to-[#150D30]
-                           transition-colors duration-700"
+           bg-gradient-to-br from-[#FFFFFF] via-[#F7F7F7] to-[#E8EAF6] 
+           dark:from-[#2D1B69] dark:via-[#1F1347] dark:to-[#150D30]
+           transition-colors duration-700"
             >
                 <div className="hero-content flex flex-col items-center justify-center 
                               space-y-8 text-center px-4 mt-20">
@@ -149,7 +149,7 @@ const Hero = memo(({ onLoadComplete }: HeroProps) => {
                             FRONTEND DEVELOPER
                         </span>
 
-                        <h1 className="special-font hero-heading text-blue-100  md:text-9xl 
+                        <h1 className="special-font hero-heading text-black dark:text-blue-200  md:text-9xl 
                                     leading-tight">
                             All-in-one website <span className="text-[#FF8E53]"> ma<b>k</b>er</span>
                         </h1>
@@ -167,7 +167,7 @@ const Hero = memo(({ onLoadComplete }: HeroProps) => {
                             id="work"
                             title="View My Work"
                             rightIcon={<FaLocationArrow />}
-                            containerClass="bg-white dark:bg-black text-black dark:text-white 
+                            containerClass="bg-[#FF8E53] dark:bg-black text-black dark:text-white 
                                          hover:scale-105 transition-all duration-300"
                             handleclick={() => handleScroll('projects')}
                         />

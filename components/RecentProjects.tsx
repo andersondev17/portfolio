@@ -82,11 +82,11 @@ const RecentProjects = () => {
                 <div className="absolute inset-0  opacity-[0.02] mix-blend-overlay" />
             </div>
             <div className="about-subtext h-dvh text-center pt-40">
-                    <p>I've collaborated in duties across areas from initial concept to deployment</p>
-                    <p className="text-gray-500">
-                    I constantly explore new technologies and resources to build smooth and scalable apps.
-                    </p>
-                </div>
+                <p>Throughout my journey, I've collaborated in duties across areas from initial concept to deployment</p>
+                <p className="text-gray-500">
+                    I constantly explore new technologies and resources to build smooth and scalable web applications.
+                </p>
+            </div>
             {/* Contenido principal */}
             <div className="container mx-auto  relative z-10">
                 {/* Encabezado */}

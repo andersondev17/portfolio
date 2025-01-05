@@ -235,16 +235,18 @@
   font-feature-settings: "ss01" on;
 }
 .animated-title {
-  @apply flex flex-col gap-1 text-7xl uppercase leading-[.8] text-white sm:px-32 md:text-[6rem];
+  @apply flex flex-col gap-1 text-7xl uppercase leading-[.8]  sm:px-32 md:text-[6rem];
 }
 .mask-clip-path {
   clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
 }
 .animated-word {
-  @apply  special-font font-zentry font-black opacity-0;
-  transform: translate3d(10px, 51px, -60px) rotateY(60deg) rotateX(-40deg);
-  transform-origin: 50% 50% -150px !important;
+  @apply special-font font-zentry font-black opacity-0;
+  transform: translate3d(0, 50px, -60px) rotateY(60deg) rotateX(-40deg);
+  transform-origin: 50% 50% -150px;
   will-change: opacity, transform;
+  margin: 0 0.25rem;
+  transition: all 0.4s ease-in-out;
 }
 
 .three-body {

@@ -22,7 +22,9 @@ const config = {
 			center: true,
 			padding: '2rem',
 			screens: {
-				'2xl': '1400px'
+				'2xl': '1400px',
+				hd: '1280px',   // HD
+				fhd: '1920px',  // Full HD
 			}
 		},
 		extend: {
