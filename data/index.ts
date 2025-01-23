@@ -118,7 +118,7 @@ export const projects = [
             "/tail.svg",
             "mongo-icon.svg"
         ],
-        link: "https://github.com/andersondev17/AMMAE",
+        link: "https://ammae-front.vercel.app/",
         github: "https://github.com/andersondev17/AMMAE",
         highlights: [
             "Reduced loading time by 60%",
