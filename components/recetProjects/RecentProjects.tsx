@@ -1,47 +1,15 @@
 import { projects } from "@/data";
-import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useTheme } from "next-themes";
-import { useRef } from "react";
 import { Spotlight } from "../ui/Spotlight";
 import TextGenerateEffect from "../ui/text-generate-effect";
 import { ProjectCard } from "./ProjectCard";
 
-// Register ScrollTrigger
-if (typeof window !== 'undefined') {
-    gsap.registerPlugin(ScrollTrigger);
-}
 
 const RecentProjects = () => {
     const { theme } = useTheme();
-    const sectionRef = useRef<HTMLElement>(null);
-    const headingRef = useRef<HTMLDivElement>(null);
-
-    useGSAP(() => {
-        // Intersection Observer for better performance than ScrollTrigger
-        const observer = new IntersectionObserver(
-            (entries) => {
-                entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('animate-fade-in');
-                    }
-                });
-            },
-            { threshold: 0.1 }
-        );
-
-        // Observe heading
-        if (headingRef.current) {
-            observer.observe(headingRef.current);
-        }
-
-        return () => observer.disconnect();
-    }, []);
 
     return (
         <section
-            ref={sectionRef}
             className="relative py-20 lg:py-40 overflow-hidden"
             id="projects"
             aria-label="Project Showcase"
@@ -68,7 +36,7 @@ const RecentProjects = () => {
 
             {/* Main Content */}
             <div className="container mx-auto px-4 relative z-10">
-                <div ref={headingRef} className="text-center space-y-8 mb-20">
+                <div  className="text-center space-y-8 mb-20">
                     <span className="inline-block text-sm font-medium tracking-wider text-purple-500 uppercase">
                         Portfolio Showcase
                     </span>

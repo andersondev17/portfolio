@@ -177,6 +177,55 @@ export const projects = [
             "Enhanced data visualization"
         ]
     }
+    ,
+    {
+        id: 4,
+        title: " Arelo – Modern & Minimalist Landing Page",
+        role: "Frontend Developer",
+        des: "Arelo is a modern landing page that provides an intuitive experience for potential buyers and investors.",
+        img: "/img/projects/p5.png",
+        features: [
+            "Elegant design with a focus on usability",
+            "Fast performance and smooth navigation",
+            "Built with Next.js, Tailwind CSS, and GSAP",
+            "Responsive and fully optimized for all devices"
+        ],
+        iconLists: [
+            "/re.svg",
+            "/tail.svg"
+        ],
+        link: "https://arelo.vercel.app/",
+        github: "https://github.com/andersondev17/arelo",
+        highlights: [
+            "Increased user engagement by 35%",
+            "Reduced form completion time",
+            "Enhanced data visualization"
+        ]
+    }
+    ,
+    {
+        id: 4,
+        title: " Fitness App With APIs from RapidAPI",
+        role: "Frontend Developer",
+        des: "  With this fitness app, users have the functionality to choose exercise categories and specific muscle groups, browse more than one thousand exercises with practical examples",
+        img: "/img/projects/p6.png",
+        features: [
+            "React Best Practices such as file structure and hooks",
+            "Fast performance and smooth navigation",
+            "Fetching data from unlimited sources using RapidAPI"
+        ],
+        iconLists: [
+            "/re.svg",
+            "/tail.svg"
+        ],
+        link: "https://github.com/andersondev17/gymshock",
+        github: "https://github.com/andersondev17/gymshock",
+        highlights: [
+            "Increased user engagement by 35%",
+            "Reduced form completion time",
+            "Enhanced data visualization"
+        ]
+    }
 ];
 
 export const testimonials = [
@@ -185,31 +234,7 @@ export const testimonials = [
             "Collaborating with Adrian was an absolute pleasure. His professionalism, promptness, and dedication to delivering exceptional results were evident throughout our project. Adrian's enthusiasm for every facet of development truly stands out. If you're seeking to elevate your website and elevate your brand, Adrian is the ideal partner.",
         name: "Michael Johnson",
         title: "Director of AlphaStream Technologies",
-    },
-    {
-        quote:
-            "Collaborating with Adrian was an absolute pleasure. His professionalism, promptness, and dedication to delivering exceptional results were evident throughout our project. Adrian's enthusiasm for every facet of development truly stands out. If you're seeking to elevate your website and elevate your brand, Adrian is the ideal partner.",
-        name: "Michael Johnson",
-        title: "Director of AlphaStream Technologies",
-    },
-    {
-        quote:
-            "Collaborating with Adrian was an absolute pleasure. His professionalism, promptness, and dedication to delivering exceptional results were evident throughout our project. Adrian's enthusiasm for every facet of development truly stands out. If you're seeking to elevate your website and elevate your brand, Adrian is the ideal partner.",
-        name: "Michael Johnson",
-        title: "Director of AlphaStream Technologies",
-    },
-    {
-        quote:
-            "Collaborating with Adrian was an absolute pleasure. His professionalism, promptness, and dedication to delivering exceptional results were evident throughout our project. Adrian's enthusiasm for every facet of development truly stands out. If you're seeking to elevate your website and elevate your brand, Adrian is the ideal partner.",
-        name: "Michael Johnson",
-        title: "Director of AlphaStream Technologies",
-    },
-    {
-        quote:
-            "Collaborating with Adrian was an absolute pleasure. His professionalism, promptness, and dedication to delivering exceptional results were evident throughout our project. Adrian's enthusiasm for every facet of development truly stands out. If you're seeking to elevate your website and elevate your brand, Adrian is the ideal partner.",
-        name: "Michael Johnson",
-        title: "Director of AlphaStream Technologies",
-    },
+    }
 ];
 
 export const workExperience = [
@@ -234,6 +259,7 @@ export const workExperience = [
         className: "md:col-span-2", // change to md:col-span-2
         thumbnail: "/exp3.svg",
     },
+    
 
 ];
 
