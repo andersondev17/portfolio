@@ -141,12 +141,12 @@ const Hero = memo(({ onLoadComplete }: HeroProps) => {
             >
                 <div className="hero-content flex flex-col items-center justify-center 
                               space-y-8 text-center px-4 mt-20">
-                    <h1 className="sr-only">Anderson Lopez - Frontend Developer Portfolio</h1>
+                    <h1 className="sr-only">Anderson Lopez - Developer Portfolio</h1>
 
                     <div className="space-y-6">
                         <span className="inline-block text-sm font-robert-medium tracking-wider 
                                      text-purple-500 dark:text-purple-400">
-                            FRONTEND DEVELOPER
+                             DEVELOPER
                         </span>
 
                         <h1 className="special-font hero-heading text-black dark:text-blue-200  md:text-9xl 

@@ -121,13 +121,9 @@ const Footer = () => {
                     </div>
                 </div>
 
-                <div
-                    className=" mt-4 flex md:flex-row flex-col justify-between items-center border-t border-gray-200/20 dark:border-gray-800/50 pt-8"
-
-                >
-                    
-                    <p className="text-gray-600 dark:text-white-200/80 font-medium">
-                        © 2024 Anderson Lopez. All rights reserved.
+                <div className="border-t border-gray-800 mt-12 pt-8">
+                <p className="text-center text-gray-400">
+                    © {new Date().getFullYear()} Anderson Lopez. All rights reserved.
                     </p>
 
                     

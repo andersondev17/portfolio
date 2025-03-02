@@ -113,10 +113,12 @@ export const projects = [
             "Real-time inventory updates"
         ],
         iconLists: [
+            "mongo-icon.svg",
+            "/ex.svg",
+            "/tail.svg",
             "next.svg",
             "/ts.svg",
-            "/tail.svg",
-            "mongo-icon.svg"
+
         ],
         link: "https://ammae-front.vercel.app/",
         github: "https://github.com/andersondev17/AMMAE",
@@ -191,6 +193,7 @@ export const projects = [
             "Responsive and fully optimized for all devices"
         ],
         iconLists: [
+            "next.svg",
             "/re.svg",
             "/tail.svg"
         ],
@@ -215,6 +218,7 @@ export const projects = [
             "Fetching data from unlimited sources using RapidAPI"
         ],
         iconLists: [
+            "next.svg",
             "/re.svg",
             "/tail.svg"
         ],
