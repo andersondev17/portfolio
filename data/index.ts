@@ -76,7 +76,7 @@ export const projects = [
         id: 1,
         title: "E-commerce Platform",
         role: "Lead Frontend Developer",
-        des:  "A modern e-commerce platform offering customizable product options. Designed for scalability and intuitive user interactions.",
+        des: "A modern e-commerce platform offering customizable product options. Designed for scalability and intuitive user interactions.",
         img: "/img/projects/p2.png",
         features: [
             "Custom product configuration system",
@@ -152,32 +152,6 @@ export const projects = [
             "Accessible design implementation",
             "Optimized database queries"
         ]
-    },
-    {
-        id: 4,
-        title: "Survey Master",
-        role: "Frontend Developer",
-        des: "A dynamic single-page web application designed for creating and managing surveys, featuring real-time updates and responsive design for optimal user experience across devices.",
-        img: "/img/projects/p1.png",
-        features: [
-            "Dynamic form generation",
-            "Real-time data visualization",
-            "Export functionality",
-            "User authentication",
-            "Response analytics"
-        ],
-        iconLists: [
-            "nodejs.svg",
-            "/re.svg",
-            "/tail.svg"
-        ],
-        link: "https://spin-website-graphics-iucy-nara3wyvv-thegodfatherptes-projects.vercel.app/",
-        github: "https://github.com/andersondev17/SPIN_Website_Graphics",
-        highlights: [
-            "Increased user engagement by 35%",
-            "Reduced form completion time",
-            "Enhanced data visualization"
-        ]
     }
     ,
     {
@@ -207,7 +181,7 @@ export const projects = [
     }
     ,
     {
-        id: 4,
+        id: 5,
         title: " Fitness App With APIs from RapidAPI",
         role: "Frontend Developer",
         des: "  With this fitness app, users have the functionality to choose exercise categories and specific muscle groups, browse more than one thousand exercises with practical examples",
@@ -224,6 +198,58 @@ export const projects = [
         ],
         link: "https://github.com/andersondev17/gymshock",
         github: "https://github.com/andersondev17/gymshock",
+        highlights: [
+            "Increased user engagement by 35%",
+            "Reduced form completion time",
+            "Enhanced data visualization"
+        ]
+    }
+    ,
+    {
+        id: 6,
+        title: "Interactive Solar Project Map",
+        role: "Full Stack Developer",
+        des: "Developed a web application to visualize solar energy projects on an interactive map, integrating APIs for real-time data insights.",
+        img: "/img/projects/p7.png",
+        features: [
+            "Price and radiation heatmaps – Get insights on solar potential",
+            "Search by coordinates and statistics – Locate and analyze projects easily",
+            "Geospatial data visualization & project management – Intuitive and interactive UI"
+        ],
+        iconLists: [
+            "nodejs.svg",
+            "/re.svg",
+            "/tail.svg"
+        ],
+        link: "https://spin-website-graphics-iucy-nara3wyvv-thegodfatherptes-projects.vercel.app/",
+        github: "https://github.com/andersondev17/SPIN_Website_Graphics",
+        highlights: [
+            "Increased user engagement by 35%",
+            "Reduced form completion time",
+            "Enhanced data visualization"
+        ]
+    }
+    ,
+    {
+        id: 7,
+        title: "Survey Master",
+        role: "Frontend Developer",
+        des: "A dynamic single-page web application designed for creating and managing surveys, featuring real-time updates and responsive design for optimal user experience across devices.",
+        img: "/img/projects/p1.png",
+        features: [
+            "Dynamic form generation",
+            "Real-time data visualization",
+            "Export functionality",
+            "User authentication",
+            "Response analytics"
+        ],
+        iconLists: [
+            "nodejs.svg",
+            "/re.svg",
+            "/tail.svg"
+        ],
+        link: "https://spin-website-graphics-iucy-nara3wyvv-thegodfatherptes-projects.vercel.app/",
+        github: "https://github.com/andersondev17/SPIN_Website_Graphics",
         highlights: [
             "Increased user engagement by 35%",
             "Reduced form completion time",
@@ -263,7 +289,7 @@ export const workExperience = [
         className: "md:col-span-2", // change to md:col-span-2
         thumbnail: "/exp3.svg",
     },
-    
+
 
 ];
 
