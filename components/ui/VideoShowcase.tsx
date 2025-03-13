@@ -52,8 +52,8 @@ const VideoShowcase: React.FC = () => {
   return (
     <div id="video-showcase" className="min-h-screen w-screen">
       <div className="h-dvh w-screen" id="video-clip">
-        <div className="mask-clip-path about-image w-[60vw] h-[60vh] rounded-3xl overflow-hidden">
-          <video
+      <div className="mask-clip-path about-image w-full h-full rounded-3xl overflow-hidden">
+      <video
             ref={videoRef}
             src="/video/showCase.mp4"
             className="absolute left-0 top-0 size-full object-cover"

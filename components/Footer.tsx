@@ -1,7 +1,6 @@
 import { socialMedia } from "@/data";
 import { motion } from 'framer-motion';
 import { FaFileDownload, FaLocationArrow } from "react-icons/fa";
-import DynamicProfileAvatar from "./ProfileAvatar";
 import MagicButton from "./ui/MagicButton";
 import { Spotlight } from "./ui/Spotlight";
 import TextGenerateEffect from "./ui/text-generate-effect";
@@ -35,7 +34,6 @@ const Footer = () => {
                     className="text-center"
                     
                 >
-                    <DynamicProfileAvatar />
                     <TextGenerateEffect
                         words="Ready to take your digital presence
                             to the next level?"

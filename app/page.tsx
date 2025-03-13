@@ -3,7 +3,6 @@
 import About from "@/components/About";
 import { FloatingNav } from "@/components/ui/FloatingNav";
 import LoadingSpinner from "@/components/ui/loading/LoadingSpinner";
-import VideoShowcase from "@/components/ui/VideoShowcase";
 import { navItems } from "@/data";
 import { cn } from "@/lib/utils";
 import { useTheme } from "next-themes";
@@ -22,7 +21,13 @@ const LoadingSection = () => (
 );
 
 // Lazy load de componentes secundarios
-const RecentProjects = dynamic(() => import("@/components/recetProjects/RecentProjects"));
+const RecentProjects = dynamic(
+  () => import("@/components/recetProjects/RecentProjects").then(mod => mod.default),
+  { 
+    loading: () => <LoadingSpinner/>,
+    ssr: false 
+  }
+);
 const Footer = dynamic(() => import("@/components/Footer"));
 
 export default function Home() {
@@ -43,16 +48,13 @@ export default function Home() {
           </div>
 
           <Suspense fallback={<LoadingSection />}>
-           
-            <div id="about" className="relative min-h-screen overflow-hidden">
-              <About />
-            </div>
-            <div id="showcase" className="relative min-h-screen overflow-hidden">
-              <VideoShowcase />
-            </div>
 
             <div id="projects" className="">
               <RecentProjects />
+            </div>
+
+            <div id="about" className="relative overflow-hidden min-h-[90dvh] h-auto">
+              <About />
             </div>
 
 

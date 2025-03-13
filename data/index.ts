@@ -115,9 +115,10 @@ export const projects = [
         iconLists: [
             "mongo-icon.svg",
             "/ex.svg",
-            "/tail.svg",
+            "/re.svg",
             "next.svg",
             "/ts.svg",
+            "/tail.svg",
 
         ],
         link: "https://ammae-front.vercel.app/",
@@ -143,6 +144,7 @@ export const projects = [
         iconLists: [
             "next.svg",
             "/ts.svg",
+            "/re.svg",
             "/tail.svg"
         ],
         link: "https://brand-registry.vercel.app/",
@@ -169,7 +171,10 @@ export const projects = [
         iconLists: [
             "next.svg",
             "/re.svg",
-            "/tail.svg"
+            "/tail.svg",
+            "/ts.svg",
+
+
         ],
         link: "https://arelo.vercel.app/",
         github: "https://github.com/andersondev17/arelo",
@@ -194,6 +199,7 @@ export const projects = [
         iconLists: [
             "next.svg",
             "/re.svg",
+            "/ts.svg",
             "/tail.svg"
         ],
         link: "https://github.com/andersondev17/gymshock",
@@ -217,12 +223,13 @@ export const projects = [
             "Geospatial data visualization & project management – Intuitive and interactive UI"
         ],
         iconLists: [
-            "nodejs.svg",
-            "/re.svg",
-            "/tail.svg"
+            "nuxt.svg",
+            "/vue.svg",
+            "/tail.svg",
+            "ts.svg"
         ],
-        link: "https://spin-website-graphics-iucy-nara3wyvv-thegodfatherptes-projects.vercel.app/",
-        github: "https://github.com/andersondev17/SPIN_Website_Graphics",
+        link: "https://github.com/andersondev17/interactive-map",
+        github: "https://github.com/andersondev17/interactive-map",
         highlights: [
             "Increased user engagement by 35%",
             "Reduced form completion time",
