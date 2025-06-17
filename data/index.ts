@@ -109,7 +109,7 @@ export const projects = [
         features: [
             "Custom CMS for product management for Real-time inventory tracking and updates",
             "RESTful API integration",
-            "User authentication system",
+            "User authentication with Passport.js and AuthJS",
             "Real-time inventory updates"
         ],
         iconLists: [
@@ -131,6 +131,31 @@ export const projects = [
     },
     {
         id: 3,
+        title: " Landing page",
+        role: "Frontend Developer",
+        des: "Project landing page built with Next.js, Tailwind CSS, and GSAP.",
+        img: "/img/projects/p8.webp",
+        features: [
+            "Intuitive brand registration workflow",
+            "Real-time validation with Zod",
+            "Performance optimization"
+        ],
+        iconLists: [
+            "next.svg",
+            "/ts.svg",
+            "/re.svg",
+            "/tail.svg"
+        ],
+        link: "https://starinsurance-gamma.vercel.app/",
+        github: "https://github.com/andersondev17/StarLigth-Ins.-Group",
+        highlights: [
+            "95+ Lighthouse performance score",
+            "Accessible design implementation",
+            "Optimized database queries"
+        ]
+    },
+    {
+        id: 4,
         title: "🎯 Brand Registration System",
         role: "Frontend Developer",
         des: "A modern brand registration management system built with Next.js 15, providing a comprehensive CRUD interface with an emphasis on user experience and performance optimization.",
@@ -157,7 +182,7 @@ export const projects = [
     }
     ,
     {
-        id: 4,
+        id: 5,
         title: " Arelo – Modern & Minimalist Landing Page",
         role: "Frontend Developer",
         des: "Arelo is a modern landing page that provides an intuitive experience for potential buyers and investors.",
@@ -186,10 +211,10 @@ export const projects = [
     }
     ,
     {
-        id: 5,
+        id: 6,
         title: " Fitness App With APIs from RapidAPI",
         role: "Frontend Developer",
-        des: "  With this fitness app, users have the functionality to choose exercise categories and specific muscle groups, browse more than one thousand exercises with practical examples",
+        des: " Discover over 1300+ exercises tailored to your goals., browse more than one thousand exercises with practical videos from youtube",
         img: "/img/projects/p6.png",
         features: [
             "React Best Practices such as file structure and hooks",
@@ -212,7 +237,7 @@ export const projects = [
     }
     ,
     {
-        id: 6,
+        id: 7,
         title: "Interactive Solar Project Map",
         role: "Full Stack Developer",
         des: "Developed a web application to visualize solar energy projects on an interactive map, integrating APIs for real-time data insights.",
@@ -237,32 +262,32 @@ export const projects = [
         ]
     }
     ,
-    {
-        id: 7,
-        title: "Survey Master",
-        role: "Frontend Developer",
-        des: "A dynamic single-page web application designed for creating and managing surveys, featuring real-time updates and responsive design for optimal user experience across devices.",
-        img: "/img/projects/p1.png",
+        {
+        id: 8,
+        title: "FULL STACK LIBRARY SYSTEM",
+        role: "Full Stack Developer",
+        des: "Developed a web application for a library system, integrating APIs for real-time data insights.",
+        img: "/img/projects/p9.webp",
         features: [
-            "Dynamic form generation",
-            "Real-time data visualization",
-            "Export functionality",
-            "User authentication",
-            "Response analytics"
+            "Rate limiting and caching using Arcjet",
+            "AuthJS for secure user authentication",
+            "Prisma ORM with graphQL for efficient data management",
         ],
         iconLists: [
-            "nodejs.svg",
-            "/re.svg",
-            "/tail.svg"
+            "nuxt.svg",
+            "/vue.svg",
+            "/tail.svg",
+            "ts.svg"
         ],
-        link: "https://spin-website-graphics-iucy-nara3wyvv-thegodfatherptes-projects.vercel.app/",
-        github: "https://github.com/andersondev17/SPIN_Website_Graphics",
+        link: "https://sistema-biblioteca-omega.vercel.app/",
+        github: "https://github.com/andersondev17/sistema-biblioteca",
         highlights: [
             "Increased user engagement by 35%",
             "Reduced form completion time",
             "Enhanced data visualization"
         ]
     }
+    
 ];
 
 export const testimonials = [
