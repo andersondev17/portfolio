@@ -30,8 +30,8 @@ const AnimatedTitle: React.FC<AnimatedTitleProps> = ({ title, containerClass }) 
                 {
                     opacity: 1,
                     transform: "translate3d(0, 0, 0) rotateY(0deg) rotateX(0deg)",
-                    ease: "power2.inOut",
-                    stagger: 0.02,
+                    ease: "power1.inOut",
+                    stagger: 0.01,
                 },
                 0
             );
@@ -50,7 +50,7 @@ const AnimatedTitle: React.FC<AnimatedTitleProps> = ({ title, containerClass }) 
                     {line.split(" ").map((word: string, idx: number) => (
                         <span
                             key={idx}
-                            className="animated-word"
+                            className="animated-word   text-indigo-600 dark:text-white-400"
                             dangerouslySetInnerHTML={{ __html: word }}
                         />
                     ))}

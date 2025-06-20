@@ -19,19 +19,33 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://portfolio-deploy-ebon.vercel.app'),
   title: {
     template: '%s | Anderson Lopez Portfolio',
     default: "Anderson Lopez | Frontend Developer"
   },
-  description: "Frontend Developer specialized in React ecosystem, creating responsive and intuitive digital experiences",
-  keywords: ["Frontend Developer", "React", "JavaScript", "TypeScript", "Web Development"],
-  authors: [{ name: "Anderson Lopez" }],
+  description: "Bilingual Fullstack Developer specialized in React ecosystem, creating responsive and intuitive digital experiences",
+  keywords: ["Frontend Developer", "React", "JavaScript", "TypeScript", "Web Development", "Medellin developer", "Colombia developer", "Portfolio", "Frontend", "Fullstack Developer"],
+  authors: [{
+    name: "Anderson Lopez",
+    url: "https://portfolio-deploy-ebon.vercel.app"
+  }],
+  creator: "Anderson Lopez",
+  
   openGraph: {
     title: "Anderson Lopez | Frontend Developer",
     description: "Creating seamless user experiences with modern web technologies",
     type: "website",
     locale: "en_US",
-    url: "https://portfolio-deploy-ebon.vercel.app/"
+    url: "https://portfolio-deploy-ebon.vercel.app/",
+    images: [
+      {
+        url: "/metaIcon.png", // Using existing icon
+        width: 1200,
+        height: 630,
+        alt: "Anderson Lopez - Frontend Developer Portfolio"
+      }
+    ]
   }
 };
 
@@ -43,7 +57,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-      <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" type="image/png" href="/metaIcon.png" sizes="any" />
       </head>
       <body className={inter.className}>

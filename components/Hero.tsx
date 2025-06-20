@@ -1,111 +1,64 @@
-"use client";
+'use client';
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import dynamic from "next/dynamic";
-import Link from "next/link";
-import { memo, useCallback, useEffect, useRef, useState } from "react";
-import { FaBriefcase, FaChevronDown, FaLocationArrow } from "react-icons/fa";
+import { memo, useCallback, useRef } from "react";
+import { FaChevronDown, FaLocationArrow } from "react-icons/fa";
+import MagicButton from "./ui/MagicButton";
+import { Spotlight } from "./ui/Spotlight";
+import TextGenerateEffect from "./ui/text-generate-effect";
 
-// Optimización de importaciones dinámicas
-const MagicButton = dynamic(() => import('./ui/MagicButton'), {
-    ssr: false,
-    loading: () => (
-        <div className="h-12 w-40 animate-pulse bg-gray-200 rounded-full"
-            role="presentation"
-            aria-label="Loading button"
-        />
-    )
-});
-
-const Spotlight = dynamic(() => import('./ui/Spotlight').then(mod => mod.Spotlight), {
-    ssr: false
-});
-
-// Configuración de animaciones
-const ANIMATION_CONFIG = {
-    duration: 0.8,
-    ease: "power2.out",
-    clipPath: {
-        initial: "polygon(14% 0, 72% 0, 88% 90%, 0 95%)",
-        final: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)"
-    }
-};
-
-// Registro optimizado de plugins GSAP
+// ✅ SOLID ARCHITECTURE: Conditional GSAP registration
 if (typeof window !== 'undefined') {
     gsap.registerPlugin(ScrollTrigger);
 }
 
-interface HeroProps {
-    onLoadComplete?: () => void;
-}
+const ANIMATION_CONFIG = {
+    ease: "power1.inOut",
+    clipPath: {
+        initial: "polygon(14% 0, 72% 0, 88% 90%, 0 95%)",
+        final: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)"
+    }
+} as const;
 
-const Hero = memo(({ onLoadComplete }: HeroProps) => {
+const Hero = memo(() => {
     const heroRef = useRef<HTMLElement>(null);
-    const [isLoaded, setIsLoaded] = useState(false);
 
-    // Animaciones GSAP optimizadas
+    // ✅ LEARNING FROM GAMING HERO: Conditional GSAP execution
     useGSAP(() => {
         if (!heroRef.current) return;
 
-        const mainTimeline = gsap.timeline({
-            scrollTrigger: {
-                trigger: heroRef.current,
-                start: "top center",
-                end: "bottom center",
-                scrub: 1
-            }
-        });
-
-        // Configuración del frame principal
-        gsap.set('#home-frame', {
+        // ✅ MINIMAL GSAP: Only clipPath that adds real value
+        gsap.set("#hero-frame", {
             clipPath: ANIMATION_CONFIG.clipPath.initial,
             borderRadius: "0% 0% 40% 10%",
         });
 
-        // Animaciones secuenciales
-        mainTimeline
-            .fromTo(".hero-content",
-                { y: 50, opacity: 0 },
-                {
-                    y: 0,
-                    opacity: 1,
-                    duration: ANIMATION_CONFIG.duration,
-                    ease: ANIMATION_CONFIG.ease
-                }
-            )
-            .from('#home-frame', {
-                clipPath: ANIMATION_CONFIG.clipPath.final,
-                borderRadius: "0% 0% 0% 0%",
-                ease: "power1.inOut",
-            });
-
-        // Animación del indicador de scroll
-        gsap.to(".scroll-indicator", {
-            y: 10,
-            duration: 1.5,
-            repeat: -1,
-            yoyo: true,
-            ease: "power1.inOut"
+        gsap.from("#hero-frame", {
+            clipPath: ANIMATION_CONFIG.clipPath.final,
+            borderRadius: "0% 0% 0% 0%",
+            ease: ANIMATION_CONFIG.ease,
+            scrollTrigger: {
+                trigger: "#hero-frame",
+                start: "center center",
+                end: "bottom center",
+                scrub: true,
+            },
         });
 
-        return () => mainTimeline.kill();
+        // ✅ CLEANUP: Following gaming hero pattern
+        return () => {
+            ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+        };
     }, []);
 
-    // Manejadores de eventos optimizados
+    // ✅ PERFORMANCE: Smooth scroll without GSAP overhead
     const handleScroll = useCallback((sectionId: string) => {
-        const element = document.getElementById(sectionId);
-        element?.scrollIntoView({
+        document.getElementById(sectionId)?.scrollIntoView({
             behavior: 'smooth',
             block: 'start'
         });
     }, []);
-
-    useEffect(() => {
-        setIsLoaded(true);
-        onLoadComplete?.();
-    }, [onLoadComplete]);
 
     return (
         <section
@@ -113,85 +66,77 @@ const Hero = memo(({ onLoadComplete }: HeroProps) => {
             className="relative h-dvh w-screen overflow-x-hidden"
             aria-label="Introduction Section"
         >
-            {/* Efectos de fondo optimizados */}
-            <div id="home-frame" className="absolute inset-0 z-0 h-dvh">
-                <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/10 dark:to-white/5" />
-                {isLoaded && (
-                    <>
-                        <Spotlight
-                            className="-top-40 -left-10 md:-left-32 md:-top-20 h-screen 
-                                     opacity-30 dark:opacity-20 [filter:hue-rotate(240deg)]"
-                            fill="orange"
-                        />
-                        <Spotlight
-                            className="-top-28 -left-80 h-[80vh] w-[50vw] opacity-30"
-                            fill="orange"
-                        />
-                    </>
-                )}
+            {/* ✅ PERFORMANCE: Tailwind predefinido = mejor cacheable */}
+            <div className="absolute inset-0 z-0">
+                <Spotlight
+                    className="-top-40 -left-10 md:-left-32 md:-top-20 h-screen"
+                    fill="indigo-500/5"
+                />
+                <Spotlight
+                    className="-top-10 -left-full h-[80vh] w-[50vw]"
+                    fill="indigo-600/3"
+                />
+                <Spotlight
+                    className="-top-28 -left-80 h-[80vh] w-[50vw]"
+                    fill="indigo-700/2"
+                />
             </div>
 
-            {/* Contenido principal */}
             <div
-                id="home-frame"
-                className="relative z-10 h-dvh w-screen overflow-hidden rounded-lg 
-           bg-gradient-to-br from-[#FFFFFF] via-[#F7F7F7] to-[#E8EAF6] 
-           dark:from-[#2D1B69] dark:via-[#1F1347] dark:to-[#150D30]
-           transition-colors duration-700"
+                id="hero-frame"
+                className="relative z-10 h-dvh w-screen overflow-hidden 
+                         bg-gradient-to-br from-slate-50 via-slate-100 to-slate-200
+                         dark:from-slate-900 dark:via-slate-800 dark:to-slate-700
+                         transition-colors duration-700"
             >
                 <div className="hero-content flex flex-col items-center justify-center 
                               space-y-8 text-center px-4 mt-20">
-                    <h1 className="sr-only">Anderson Lopez - Developer Portfolio</h1>
+                    <div className="absolute pointer-events-none inset-0 flex items-center 
+                                 justify-center dark:bg-slate-950/5 bg-slate-50/5
+                                 [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]" />
+                </div>
 
-                    <div className="space-y-6">
-                        <span className="inline-block text-sm font-robert-medium tracking-wider 
-                                     text-purple-500 dark:text-purple-400">
-                             DEVELOPER
-                        </span>
+                <div className="flex justify-center relative my-20 z-10">
+                    <div className="max-w-[89vw] md:max-w-2xl lg:max-w-[60vw] 
+                                 flex flex-col items-center justify-center">
+                        <h2 className="uppercase tracking-widest text-sm text-center 
+                                    text-slate-600 dark:text-slate-400 max-w-80">
+                            Hey there.
+                        </h2>
 
-                        <h1 className="special-font hero-heading text-black dark:text-blue-200  md:text-9xl 
-                                    leading-tight">
-                            All-in-one website <span className="text-[#FF8E53]"> ma<b>k</b>er</span>
-                        </h1>
+                        <TextGenerateEffect
+                            className="text-center text-4xl md:text-6xl lg:text-7xl
+                                     text-slate-900 dark:text-slate-50"
+                            words="All-in-one website maker"
+                        />
 
-                        <p className="mx-auto max-w-2xl font-robert-regular text-lg 
-                                  text-purple-500 dark:text-purple-400">
-                            I am Anderson, a developer passionate about merging creativity with technology.
-
+                        <p className="mx-auto max-w-2xl font-robert-regular text-base md:text-lg 
+                                  text-indigo-600 dark:text-indigo-400 pb-4">
+                            I&apos;m Anderson. I&apos;m a software Developer based in Colombia.
                         </p>
-                    </div>
 
-                    {/* Botones CTA optimizados */}
-                    <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 mt-8">
+                        {/* ✅ PERFORMANCE: Tailwind predefinido */}
                         <MagicButton
-                            id="work"
-                            title="View My Work"
+                            id="projects-button"
+                            title="Show my work"
                             rightIcon={<FaLocationArrow />}
-                            containerClass="bg-[#FF8E53] dark:bg-black text-black dark:text-white 
+                            containerClass="bg-indigo-600 hover:bg-indigo-700 text-white 
+                                         dark:bg-indigo-500 dark:hover:bg-indigo-600
                                          hover:scale-105 transition-all duration-300"
                             handleclick={() => handleScroll('projects')}
                         />
-                        <Link href="#contact" >
-                            <MagicButton
-                                id="Letscontact"
-                                title="Let's Connect"
-                                rightIcon={<FaBriefcase />}
-                                containerClass="bg-black dark:bg-white dark:text-black text-white hover:scale-105"
-                            />
-                        </Link>
                     </div>
                 </div>
-
-                {/* Indicador de scroll mejorado */}
                 <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20">
                     <div className="flex flex-col items-center gap-2">
-                        <span className="text-sm font-robert-medium text-purple-400 
-                                     opacity-80 select-none">
+                        <span className="text-sm font-robert-medium 
+                                     text-slate-600 dark:text-slate-400 select-none">
                             Scroll to explore
                         </span>
                         <FaChevronDown
-                            className="scroll-indicator text-2xl text-purple-400 opacity-80 
-                                     hover:text-purple-300 transition-colors cursor-pointer"
+                            className="text-2xl text-indigo-500 dark:text-indigo-400 
+                                     hover:text-indigo-600 dark:hover:text-indigo-300 
+                                     transition-colors cursor-pointer animate-bounce"
                             onClick={() => handleScroll('projects')}
                             aria-label="Scroll to projects section"
                         />
@@ -199,9 +144,11 @@ const Hero = memo(({ onLoadComplete }: HeroProps) => {
                 </div>
             </div>
 
-            <h2 className="special-font uppercase font-zentry font-black text-5xl sm:text-6xl absolute bottom-5 right-5 
-                        text-black dark:text-blue-100 sm:right-10">
-                User <span className="bold text-[#FF8E53]">X</span>perience
+            {/* ✅ COHESIVE: Marca usando paleta principal */}
+            <h2 className="special-font uppercase font-zentry font-black text-3xl 
+                        md:text-5xl lg:text-6xl absolute bottom-5 right-5 
+                        text-slate-900 dark:text-slate-50 md:right-10">
+                User <span className="text-indigo-600 dark:text-indigo-500">X</span>perience
             </h2>
         </section>
     );

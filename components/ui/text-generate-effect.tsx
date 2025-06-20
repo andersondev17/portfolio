@@ -6,7 +6,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useEffect, useRef } from "react";
 
 
-    gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger);
 
 interface TextGenerateEffectProps {
     words: string;
@@ -56,8 +56,8 @@ const TextGenerateEffect = ({ words, className }: TextGenerateEffectProps) => {
                             key={idx}
                             className={cn(
                                 "animated-word",
-                                idx > 1 && idx < 4 ? 'text-[#FF8E53]' : 'dark:text-white text-black',
-                               
+                                idx > 1 && idx < 4 ? 'text-indigo-600 dark:text-indigo-500' : 'dark:text-white text-black',
+
                             )}
 
                         >

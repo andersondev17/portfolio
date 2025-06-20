@@ -4,6 +4,7 @@ export interface Project {
     title: string;
     des: string;
     img: string;
+    images?: string[];
     iconLists: string[];
     link: string;
     github?: string;

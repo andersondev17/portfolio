@@ -78,6 +78,12 @@ export const projects = [
         role: "Lead Frontend Developer",
         des: "A modern e-commerce platform offering customizable product options. Designed for scalability and intuitive user interactions.",
         img: "/img/projects/p2.png",
+        images: [
+            "/img/projects/p2/p2.png",          // Homepage
+            "/img/projects/p2/p2-product.webp", // Vista producto
+            "/img/projects/p2/p2-cart.webp",    // Carrito
+            "/img/projects/p2/p2-checkout.webp"   // Versión móvil
+        ],
         features: [
             "Custom product configuration system",
             "Cart synchronization with React Context API",
@@ -106,11 +112,17 @@ export const projects = [
         role: "Full Stack Developer",
         des: "AMMAE is a MERN Stack eCommerce platform designed for advanced product management and optimized user experience, integrating a custom CMS",
         img: "/img/projects/p3.png",
+        images: [
+            "/img/projects/p3/p3.png",          // Homepage
+            "/img/projects/p3/p3-product.webp", // Vista producto
+            "/img/projects/p3/p3-cart.webp",    // Carrito
+            "/img/projects/p3/p3-dashboard.webp"   // Versión móvil
+        ],
         features: [
             "Custom CMS for product management for Real-time inventory tracking and updates",
             "RESTful API integration",
-            "User authentication with Passport.js and AuthJS",
-            "Real-time inventory updates"
+            "User authentication with AuthJS",
+            "Export data to CSV for Real-time inventory updates"
         ],
         iconLists: [
             "mongo-icon.svg",
@@ -129,12 +141,82 @@ export const projects = [
             "Enhanced security features"
         ]
     },
+
+    {
+        id: 6,
+        title: " Fitness App With APIs from RapidAPI",
+        role: "Full Stack Developer",
+        des: " Discover over 1300+ exercises tailored to your goals., browse more than one thousand exercises with practical videos from youtube",
+        img: "/img/projects/p6/p6.png",
+        images: [
+            "/img/projects/p6/p6.webp",
+            "/img/projects/p6/p6-product.png",
+            "/img/projects/p6/p6-dashboard.webp"
+        ],
+        features: [
+            "React Best Practices such as file structure and hooks",
+            "Fast performance and smooth navigation",
+            "Fetching data from unlimited sources using a local API REST and RapidAPI"
+        ],
+        iconLists: [
+            "mongo-icon.svg",
+            "/ex.svg",
+            "next.svg",
+            "/re.svg",
+            "/ts.svg",
+            "/tail.svg"
+        ],
+        link: "https://github.com/andersondev17/gymshock",
+        github: "https://github.com/andersondev17/gymshock",
+        highlights: [
+            "Increased user engagement by 35%",
+            "Reduced form completion time",
+            "Enhanced data visualization"
+        ]
+    }
+    ,
+        ,
+    {
+        id: 8,
+        title: "FULL STACK LIBRARY SYSTEM",
+        role: "Full Stack Developer",
+        des: "Developed a web application for a library system, integrating APIs for real-time data insights.",
+        img: "/img/projects/p9/p9.webp",
+        images: [
+            "/img/projects/p9/p9.webp",
+            "/img/projects/p9/p9-dashboard.webp"
+        ],
+        features: [
+            "Rate limiting and caching using Arcjet",
+            "AuthJS for secure user authentication",
+            "Prisma ORM with graphQL for efficient data management",
+        ],
+        iconLists: [
+            "mongo-icon.svg",
+            "/ex.svg",
+            "next.svg",
+            "/re.svg",
+            "/ts.svg",
+            "/tail.svg"
+        ],
+        link: "https://sistema-biblioteca-omega.vercel.app/",
+        github: "https://github.com/andersondev17/sistema-biblioteca",
+        highlights: [
+            "Increased user engagement by 35%",
+            "Reduced form completion time",
+            "Enhanced data visualization"
+        ]
+    },
     {
         id: 3,
         title: " Landing page",
         role: "Frontend Developer",
         des: "Project landing page built with Next.js, Tailwind CSS, and GSAP.",
         img: "/img/projects/p8.webp",
+        images: [
+            "/img/projects/p8/p8.webp",
+            "/img/projects/p8/p8-product.webp",
+        ],
         features: [
             "Intuitive brand registration workflow",
             "Real-time validation with Zod",
@@ -186,7 +268,11 @@ export const projects = [
         title: " Arelo – Modern & Minimalist Landing Page",
         role: "Frontend Developer",
         des: "Arelo is a modern landing page that provides an intuitive experience for potential buyers and investors.",
-        img: "/img/projects/p5.png",
+        img: "/img/projects/p5/p5.png",
+        images: [
+            "/img/projects/p5/p5.png",
+            "/img/projects/p5/p5-product.webp"
+        ],
         features: [
             "Elegant design with a focus on usability",
             "Fast performance and smooth navigation",
@@ -203,32 +289,6 @@ export const projects = [
         ],
         link: "https://arelo.vercel.app/",
         github: "https://github.com/andersondev17/arelo",
-        highlights: [
-            "Increased user engagement by 35%",
-            "Reduced form completion time",
-            "Enhanced data visualization"
-        ]
-    }
-    ,
-    {
-        id: 6,
-        title: " Fitness App With APIs from RapidAPI",
-        role: "Frontend Developer",
-        des: " Discover over 1300+ exercises tailored to your goals., browse more than one thousand exercises with practical videos from youtube",
-        img: "/img/projects/p6.png",
-        features: [
-            "React Best Practices such as file structure and hooks",
-            "Fast performance and smooth navigation",
-            "Fetching data from unlimited sources using RapidAPI"
-        ],
-        iconLists: [
-            "next.svg",
-            "/re.svg",
-            "/ts.svg",
-            "/tail.svg"
-        ],
-        link: "https://github.com/andersondev17/gymshock",
-        github: "https://github.com/andersondev17/gymshock",
         highlights: [
             "Increased user engagement by 35%",
             "Reduced form completion time",
@@ -261,33 +321,7 @@ export const projects = [
             "Enhanced data visualization"
         ]
     }
-    ,
-        {
-        id: 8,
-        title: "FULL STACK LIBRARY SYSTEM",
-        role: "Full Stack Developer",
-        des: "Developed a web application for a library system, integrating APIs for real-time data insights.",
-        img: "/img/projects/p9.webp",
-        features: [
-            "Rate limiting and caching using Arcjet",
-            "AuthJS for secure user authentication",
-            "Prisma ORM with graphQL for efficient data management",
-        ],
-        iconLists: [
-            "nuxt.svg",
-            "/vue.svg",
-            "/tail.svg",
-            "ts.svg"
-        ],
-        link: "https://sistema-biblioteca-omega.vercel.app/",
-        github: "https://github.com/andersondev17/sistema-biblioteca",
-        highlights: [
-            "Increased user engagement by 35%",
-            "Reduced form completion time",
-            "Enhanced data visualization"
-        ]
-    }
-    
+
 ];
 
 export const testimonials = [
