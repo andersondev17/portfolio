@@ -1,5 +1,4 @@
 import { projects } from "@/data";
-import { useTheme } from "next-themes";
 import dynamic from "next/dynamic";
 import { memo } from "react";
 import AnimatedTitle from "../ui/AnimatedTitle";
@@ -11,8 +10,6 @@ const ProjectCard = dynamic(() => import("./ProjectCard"), {
 });
 
 const RecentProjects = () => {
-    const { theme } = useTheme();
-
     return (
         <section
             className="relative py-20 lg:py-40"
@@ -46,7 +43,7 @@ const RecentProjects = () => {
 
                 {/* Grid de proyectos optimizado */}
                 <div className="space-y-32">
-                    {projects.map((project, index) => (
+                    {projects.map((project, index) => project && (
                         <ProjectCard
                             key={`project-${project.id}`}
                             project={project}

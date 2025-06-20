@@ -13,7 +13,7 @@ const About = () => {
         <section id="about" className="w-full py-20 px-4 md:px-0">
             <div ref={containerRef} className="max-w-4xl mx-auto">
                 <div className="flex flex-col items-center mb-12">
-                    <p className="text-indigo-600 dark:text-indigo-400 uppercase 
+                    <p className="text-indigo-600 dark:text-indigo-400 uppercase
                                tracking-wider font-medium text-sm mb-2">
                         Algo
                     </p>
@@ -43,16 +43,10 @@ const About = () => {
                     {/* ✅ COHESIVE: Bio section */}
                     <div className="md:col-span-2 flex flex-col gap-6">
                         <p className="text-lg leading-relaxed text-slate-700 dark:text-slate-300">
-                            Hola, soy Anderson López, desarrollador frontend bilingüe que comenzó su viaje en la programación con pequeños proyectos de JavaScript y terminó enamorándose del ecosistema React.
-                        </p>
+                            I'm Anderson, a bilingual developer from Medellín who started coding because I wanted to understand why some websites felt "magical" while others looked like they were built in 1999.                        </p>
 
                         <p className="text-lg leading-relaxed text-slate-700 dark:text-slate-300">
-                            En el último año y medio, me he dedicado a transformar diseños en experiencias conscientes que no solo funcionan bien, sino que también conectan con los usuarios.
-                        </p>
-
-                        <p className="text-lg leading-relaxed text-slate-700 dark:text-slate-300">
-                            Soy muy inquieto con mi mente, cuando no estoy depurando código o experimentando con nuevas animaciones, probablemente me encontrarás explorando documentación de tecnologías emergentes o resolviendo desafíos de algoritmos para mantener mi mente afilada.
-                        </p>
+                            Currently, I build web applications that solve real problems. My latest e-commerce project improved engagement by 40%—not because I used React (which I obviously did), but because I understood that behind every click is someone trying to buy anything at 2am.                        </p>
                     </div>
                 </div>
 
